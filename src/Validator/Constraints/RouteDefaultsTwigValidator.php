@@ -11,6 +11,7 @@
 
 namespace Harmony\Bundle\RoutingBundle\Validator\Constraints;
 
+use LogicException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\Validator\Constraint;
@@ -22,6 +23,7 @@ use Twig\Loader\LoaderInterface;
  */
 class RouteDefaultsTwigValidator extends ConstraintValidator
 {
+
     private $controllerResolver;
 
     /**
@@ -29,12 +31,24 @@ class RouteDefaultsTwigValidator extends ConstraintValidator
      */
     private $twig;
 
+    /**
+     * RouteDefaultsTwigValidator constructor.
+     *
+     * @param ControllerResolverInterface $controllerResolver
+     * @param LoaderInterface             $twig
+     */
     public function __construct(ControllerResolverInterface $controllerResolver, LoaderInterface $twig)
     {
         $this->controllerResolver = $controllerResolver;
-        $this->twig = $twig;
+        $this->twig               = $twig;
     }
 
+    /**
+     * Checks if the passed value is valid.
+     *
+     * @param mixed      $defaults   The value that should be validated
+     * @param Constraint $constraint The constraint for the validation
+     */
     public function validate($defaults, Constraint $constraint)
     {
         if (isset($defaults['_controller']) && null !== $defaults['_controller']) {
@@ -44,7 +58,8 @@ class RouteDefaultsTwigValidator extends ConstraintValidator
 
             try {
                 $this->controllerResolver->getController($request);
-            } catch (\LogicException $e) {
+            }
+            catch (LogicException $e) {
                 $this->context->addViolation($e->getMessage());
             }
         }

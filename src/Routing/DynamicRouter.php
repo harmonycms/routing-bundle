@@ -15,7 +15,9 @@ use Symfony\Cmf\Component\Routing\DynamicRouter as BaseDynamicRouter;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use function array_key_exists;
 
 /**
  * Symfony framework integration of the CMF routing component DynamicRouter class.
@@ -27,6 +29,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
  */
 class DynamicRouter extends BaseDynamicRouter
 {
+
     /**
      * key for the request attribute that contains the route document.
      */
@@ -52,9 +55,7 @@ class DynamicRouter extends BaseDynamicRouter
     /**
      * Put content and template name into the request attributes instead of the
      * route defaults.
-     *
      * {@inheritdoc}
-     *
      * The match should identify  a controller for symfony. This can either be
      * the fully qualified class name or the service name of a controller that
      * is registered as a service. In both cases, the action to call on that
@@ -67,11 +68,50 @@ class DynamicRouter extends BaseDynamicRouter
         return $this->cleanDefaults($defaults);
     }
 
+    /**
+     * Tries to match a request with a set of routes and returns the array of
+     * information for that route.
+     * If the matcher can not find information, it must throw one of the
+     * exceptions documented below.
+     *
+     * @param Request $request The request to match
+     *
+     * @return array An array of parameters
+     * @throws ResourceNotFoundException If no matching resource could be found
+     * @throws MethodNotAllowedException If a matching resource was found but
+     *                                   the request method is not allowed
+     */
     public function matchRequest(Request $request)
     {
         $defaults = parent::matchRequest($request);
 
         return $this->cleanDefaults($defaults, $request);
+    }
+
+    /**
+     * Set the request stack so that we can find the current request.
+     *
+     * @param RequestStack $requestStack
+     */
+    public function setRequestStack(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
+    /**
+     * Get the current request from the request stack.
+     *
+     * @return Request
+     * @throws ResourceNotFoundException
+     */
+    public function getRequest()
+    {
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        if (!$currentRequest) {
+            throw new ResourceNotFoundException('There is no request in the request stack');
+        }
+
+        return $currentRequest;
     }
 
     /**
@@ -108,32 +148,5 @@ class DynamicRouter extends BaseDynamicRouter
         }
 
         return $defaults;
-    }
-
-    /**
-     * Set the request stack so that we can find the current request.
-     *
-     * @param RequestStack $requestStack
-     */
-    public function setRequestStack(RequestStack $requestStack)
-    {
-        $this->requestStack = $requestStack;
-    }
-
-    /**
-     * Get the current request from the request stack.
-     *
-     * @return Request
-     *
-     * @throws \Symfony\Component\Routing\Exception\ResourceNotFoundException
-     */
-    public function getRequest()
-    {
-        $currentRequest = $this->requestStack->getCurrentRequest();
-        if (!$currentRequest) {
-            throw new ResourceNotFoundException('There is no request in the request stack');
-        }
-
-        return $currentRequest;
     }
 }

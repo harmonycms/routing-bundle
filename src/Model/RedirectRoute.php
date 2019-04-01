@@ -13,13 +13,17 @@ namespace Harmony\Bundle\RoutingBundle\Model;
 
 use LogicException;
 use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 
 /**
- * {@inheritdoc}
+ * Class RedirectRoute
+ *
+ * @package Harmony\Bundle\RoutingBundle\Model
  */
 class RedirectRoute extends Route implements RedirectRouteInterface
 {
+
     /**
      * Absolute uri to redirect to.
      */
@@ -60,7 +64,13 @@ class RedirectRoute extends Route implements RedirectRouteInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get the content document this route entry stands for. If non-null,
+     * the ControllerClassMapper uses it to identify a controller and
+     * the content is passed to the controller.
+     * If there is no specific content for this url (i.e. its an "application"
+     * page), may return null.
+     *
+     * @return object the document or entity this route entry points to
      */
     public function getContent()
     {
@@ -79,7 +89,12 @@ class RedirectRoute extends Route implements RedirectRouteInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get the target route document this route redirects to.
+     * If non-null, it is added as route into the parameters, which will lead
+     * to have the generate call issued by the RedirectController to have
+     * the target route in the parameters.
+     *
+     * @return RouteObjectInterface the route this redirection points to
      */
     public function getRouteTarget()
     {
@@ -97,7 +112,10 @@ class RedirectRoute extends Route implements RedirectRouteInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get the name of the target route for working with the symfony standard
+     * router.
+     *
+     * @return string target route name
      */
     public function getRouteName()
     {
@@ -116,7 +134,9 @@ class RedirectRoute extends Route implements RedirectRouteInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Whether this should be a permanent or temporary redirect.
+     *
+     * @return bool
      */
     public function isPermanent()
     {
@@ -136,7 +156,11 @@ class RedirectRoute extends Route implements RedirectRouteInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get the parameters for the target route router::generate().
+     * Note that for the DynamicRouter, you return the target route
+     * document as field 'route' of the hashmap.
+     *
+     * @return array Information to build the route
      */
     public function getParameters()
     {
@@ -154,7 +178,10 @@ class RedirectRoute extends Route implements RedirectRouteInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get the absolute uri to redirect to external domains.
+     * If this is non-empty, the other methods won't be used.
+     *
+     * @return string target absolute uri
      */
     public function getUri()
     {

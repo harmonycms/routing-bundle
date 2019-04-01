@@ -13,13 +13,15 @@ namespace Harmony\Bundle\RoutingBundle\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LoadClassMetadataEventArgs;
-use Doctrine\ODM\PHPCR\Mapping\ClassMetadata as PhpcrClassMetadata;
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata as MongoDBClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadata as OrmClassMetadata;
 use Symfony\Component\Routing\Route;
+use function get_class;
+use function property_exists;
+use function sprintf;
 
 /**
  * Metadata listener to remove mapping for condition field if the field does not exist.
- *
  * The condition option was only added in Symfony 2.4 and is missing from 2.3.
  * When we drop Symfony 2.3 support, this listener can be dropped.
  *
@@ -27,6 +29,7 @@ use Symfony\Component\Routing\Route;
  */
 class RouteConditionMetadataListener implements EventSubscriber
 {
+
     /**
      * @return array
      */
@@ -42,6 +45,8 @@ class RouteConditionMetadataListener implements EventSubscriber
      * fields and remove the locale mapping if present.
      *
      * @param LoadClassMetadataEventArgs $eventArgs
+     *
+     * @throws \Doctrine\ORM\Mapping\MappingException
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
@@ -58,20 +63,20 @@ class RouteConditionMetadataListener implements EventSubscriber
         if ($meta instanceof OrmClassMetadata) {
             /* @var $meta OrmClassMetadata */
             $meta->mapField([
-                'fieldName' => 'condition',
+                'fieldName'  => 'condition',
                 'columnName' => 'condition_expr',
-                'type' => 'string',
-                'nullable' => true,
+                'type'       => 'string',
+                'nullable'   => true,
             ]);
-        } elseif ($meta instanceof PhpcrClassMetadata) {
-            /* @var $meta PhpcrClassMetadata */
+        } elseif ($meta instanceof MongoDBClassMetadata) {
+            /* @var $meta MongoDBClassMetadata */
             $meta->mapField([
                 'fieldName' => 'condition',
-                'type' => 'string',
-                'nullable' => true,
+                'type'      => 'string',
+                'nullable'  => true,
             ]);
         } else {
-            throw new \LogicException(sprintf('Class metadata was neither PHPCR nor ORM but %s', get_class($meta)));
+            throw new \LogicException(sprintf('Class metadata was neither MongoDB nor ORM but %s', get_class($meta)));
         }
     }
 }

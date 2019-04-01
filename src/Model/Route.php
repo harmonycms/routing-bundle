@@ -14,6 +14,13 @@ namespace Harmony\Bundle\RoutingBundle\Model;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 use Symfony\Component\Routing\RouteCompiler;
+use function array_key_exists;
+use function in_array;
+use function preg_match;
+use function sprintf;
+use function strlen;
+use function strpos;
+use function substr;
 
 /**
  * Default model for routing table entries that work with the DynamicRouter.
@@ -22,6 +29,7 @@ use Symfony\Component\Routing\RouteCompiler;
  */
 class Route extends SymfonyRoute implements RouteObjectInterface
 {
+
     /**
      * Unique id of this route.
      *
@@ -39,7 +47,6 @@ class Route extends SymfonyRoute implements RouteObjectInterface
     /**
      * Part of the URL that does not have parameters and thus can be used to
      * naivly guess candidate routes.
-     *
      * Note that this field is not used by PHPCR-ODM
      *
      * @var string
@@ -55,7 +62,6 @@ class Route extends SymfonyRoute implements RouteObjectInterface
 
     /**
      * Whether this route was changed since being last compiled.
-     *
      * State information not persisted in storage.
      *
      * @var bool
@@ -64,9 +70,7 @@ class Route extends SymfonyRoute implements RouteObjectInterface
 
     /**
      * Overwrite to be able to create route without pattern.
-     *
      * Additional supported options are:
-     *
      * * add_format_pattern: When set, ".{_format}" is appended to the route pattern.
      *                       Also implicitly sets a default/require on "_format" to "html".
      * * add_locale_pattern: When set, "/{_locale}" is prepended to the route pattern.
@@ -86,7 +90,15 @@ class Route extends SymfonyRoute implements RouteObjectInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get the route name.
+     * Normal symfony routes do not know their name, the name is only known
+     * from the route collection. In the CMF, it is possible to use route
+     * documents outside of collections, and thus useful to have routes provide
+     * their name.
+     * There are no limitations to allowed characters in the name.
+     *
+     * @return string|null the route name or null to use the default name
+     *                     (e.g. from route collection if known)
      */
     public function getRouteKey()
     {
@@ -137,7 +149,13 @@ class Route extends SymfonyRoute implements RouteObjectInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get the content document this route entry stands for. If non-null,
+     * the ControllerClassMapper uses it to identify a controller and
+     * the content is passed to the controller.
+     * If there is no specific content for this url (i.e. its an "application"
+     * page), may return null.
+     *
+     * @return object the document or entity this route entry points to
      */
     public function getContent()
     {
@@ -146,7 +164,6 @@ class Route extends SymfonyRoute implements RouteObjectInterface
 
     /**
      * {@inheritdoc}
-     *
      * Prevent setting the default 'compiler_class' so that we do not persist it
      */
     public function setOptions(array $options)
@@ -156,7 +173,6 @@ class Route extends SymfonyRoute implements RouteObjectInterface
 
     /**
      * {@inheritdoc}
-     *
      * Handling the missing default 'compiler_class'
      *
      * @see setOptions
@@ -168,7 +184,7 @@ class Route extends SymfonyRoute implements RouteObjectInterface
             return RouteCompiler::class;
         }
         if ($this->isBooleanOption($name)) {
-            return (bool) $option;
+            return (bool)$option;
         }
 
         return $option;
@@ -176,7 +192,6 @@ class Route extends SymfonyRoute implements RouteObjectInterface
 
     /**
      * {@inheritdoc}
-     *
      * Handling the missing default 'compiler_class'
      *
      * @see setOptions
@@ -189,23 +204,11 @@ class Route extends SymfonyRoute implements RouteObjectInterface
         }
         foreach ($options as $key => &$value) {
             if ($this->isBooleanOption($key)) {
-                $value = (bool) $value;
+                $value = (bool)$value;
             }
         }
 
         return $options;
-    }
-
-    /**
-     * Helper method to check if an option is a boolean option to allow better forms.
-     *
-     * @param string $name
-     *
-     * @return bool whether $name is a boolean option
-     */
-    protected function isBooleanOption($name)
-    {
-        return in_array($name, ['add_format_pattern', 'add_locale_pattern']);
     }
 
     /**
@@ -228,11 +231,9 @@ class Route extends SymfonyRoute implements RouteObjectInterface
 
     /**
      * {@inheritdoc}
-     *
      * It is recommended to use setVariablePattern to just set the part after
      * the static part. If you use this method, it will ensure that the
      * static part is not changed and only change the variable part.
-     *
      * When using PHPCR-ODM, make sure to persist the route before calling this
      * to have the id field initialized.
      */
@@ -265,14 +266,13 @@ class Route extends SymfonyRoute implements RouteObjectInterface
     public function setVariablePattern($variablePattern)
     {
         $this->variablePattern = $variablePattern;
-        $this->needRecompile = true;
+        $this->needRecompile   = true;
 
         return $this;
     }
 
     /**
      * {@inheritdoc}
-     *
      * Overwritten to make sure the route is recompiled if the pattern was changed
      */
     public function compile()
@@ -283,5 +283,17 @@ class Route extends SymfonyRoute implements RouteObjectInterface
         }
 
         return parent::compile();
+    }
+
+    /**
+     * Helper method to check if an option is a boolean option to allow better forms.
+     *
+     * @param string $name
+     *
+     * @return bool whether $name is a boolean option
+     */
+    protected function isBooleanOption($name)
+    {
+        return in_array($name, ['add_format_pattern', 'add_locale_pattern']);
     }
 }

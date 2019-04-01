@@ -23,6 +23,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 abstract class DoctrineProvider
 {
+
     /**
      * If this is null, the manager registry will return the default manager.
      *
@@ -57,7 +58,7 @@ abstract class DoctrineProvider
     public function __construct(ManagerRegistry $managerRegistry, $className = null)
     {
         $this->managerRegistry = $managerRegistry;
-        $this->className = $className;
+        $this->className       = $className;
     }
 
     /**
@@ -73,7 +74,6 @@ abstract class DoctrineProvider
 
     /**
      * Set the limit to apply when calling getAllRoutes().
-     *
      * Setting the limit to null means no limit is applied.
      *
      * @param int|null $routeCollectionLimit

@@ -21,6 +21,8 @@ use Harmony\Bundle\RoutingBundle\Model\Route as RouteModel;
  */
 class Route extends RouteModel
 {
+
+    /** @var string $name */
     protected $name;
 
     /**
