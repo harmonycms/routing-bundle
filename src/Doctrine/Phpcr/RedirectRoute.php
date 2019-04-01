@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr;
+namespace Harmony\Bundle\RoutingBundle\Doctrine\Phpcr;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\PHPCR\HierarchyInterface;
-use Symfony\Cmf\Bundle\RoutingBundle\Model\RedirectRoute as RedirectRouteModel;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Harmony\Bundle\RoutingBundle\Model\RedirectRoute as RedirectRouteModel;
+use Harmony\Component\Routing\RouteObjectInterface;
 
 /**
  * {@inheritdoc}

@@ -23,10 +23,10 @@ $container->loadFromExtension('cmf_routing', [
             'editable' => 'acme_main.some_controller:editableAction',
         ],
         'controllers_by_class' => [
-            'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'cmf_content.controller:indexAction',
+            'Harmony\Bundle\ContentBundle\Document\StaticContent' => 'cmf_content.controller:indexAction',
         ],
         'templates_by_class' => [
-            'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'CmfContentBundle:StaticContent:index.html.twig',
+            'Harmony\Bundle\ContentBundle\Document\StaticContent' => 'CmfContentBundle:StaticContent:index.html.twig',
         ],
         'persistence' => [
             'phpcr' => [

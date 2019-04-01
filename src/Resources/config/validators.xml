@@ -7,7 +7,7 @@
     <services>
         <service
                 id="cmf_routing.validator.route_defaults"
-                class="Symfony\Cmf\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTwigValidator"
+                class="Harmony\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTwigValidator"
         >
             <argument id="controller_resolver" type="service"/>
             <argument id="twig.loader" type="service"/>

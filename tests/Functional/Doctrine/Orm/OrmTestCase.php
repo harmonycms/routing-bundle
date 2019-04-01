@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Functional\Doctrine\Orm;
+namespace Harmony\Bundle\RoutingBundle\Tests\Functional\Doctrine\Orm;
 
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route;
-use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as ComponentBaseTestCase;
+use Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route;
+use Harmony\Component\Testing\Functional\BaseTestCase as ComponentBaseTestCase;
 
 class OrmTestCase extends ComponentBaseTestCase
 {

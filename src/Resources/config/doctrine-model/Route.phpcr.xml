@@ -6,7 +6,7 @@
         https://github.com/doctrine/phpcr-odm/raw/master/doctrine-phpcr-odm-mapping.xsd"
 >
 
-    <mapped-superclass name="Symfony\Cmf\Bundle\RoutingBundle\Model\Route" referenceable="true">
+    <mapped-superclass name="Harmony\Bundle\RoutingBundle\Model\Route" referenceable="true">
         <field name="variablePattern" type="string" nullable="true"/>
         <reference-one name="content" property="routeContent"/>
     </mapped-superclass>

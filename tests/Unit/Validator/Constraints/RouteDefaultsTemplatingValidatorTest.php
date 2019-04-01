@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Unit\Validator\Constraints;
+namespace Harmony\Bundle\RoutingBundle\Tests\Unit\Validator\Constraints;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Cmf\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTemplatingValidator;
+use Harmony\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTemplatingValidator;
 
 class RouteDefaultsTemplatingValidatorTest extends RouteDefaultsValidatorTest
 {

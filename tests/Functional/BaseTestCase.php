@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Functional;
+namespace Harmony\Bundle\RoutingBundle\Tests\Functional;
 
 use Doctrine\ODM\PHPCR\DocumentManager;
 use PHPCR\Util\PathHelper;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
-use Symfony\Cmf\Bundle\RoutingBundle\Tests\Fixtures\App\Document\Content;
-use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as ComponentBaseTestCase;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use Harmony\Bundle\RoutingBundle\Tests\Fixtures\App\Document\Content;
+use Harmony\Component\Testing\Functional\BaseTestCase as ComponentBaseTestCase;
 
 class BaseTestCase extends ComponentBaseTestCase
 {

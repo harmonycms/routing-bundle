@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm;
+namespace Harmony\Bundle\RoutingBundle\Doctrine\Orm;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\DBAL\Exception\TableNotFoundException;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
-use Symfony\Cmf\Component\Routing\Candidates\CandidatesInterface;
-use Symfony\Cmf\Component\Routing\RouteProviderInterface;
+use Harmony\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
+use Harmony\Component\Routing\Candidates\CandidatesInterface;
+use Harmony\Component\Routing\RouteProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RouteCollection;

@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Functional\Routing;
+namespace Harmony\Bundle\RoutingBundle\Tests\Functional\Routing;
 
 use PHPCR\Util\NodeHelper;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
-use Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter;
-use Symfony\Cmf\Bundle\RoutingBundle\Tests\Fixtures\App\Document\Content;
-use Symfony\Cmf\Bundle\RoutingBundle\Tests\Functional\BaseTestCase;
-use Symfony\Cmf\Component\Routing\ChainRouter;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use Harmony\Bundle\RoutingBundle\Routing\DynamicRouter;
+use Harmony\Bundle\RoutingBundle\Tests\Fixtures\App\Document\Content;
+use Harmony\Bundle\RoutingBundle\Tests\Functional\BaseTestCase;
+use Harmony\Component\Routing\ChainRouter;
+use Harmony\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;

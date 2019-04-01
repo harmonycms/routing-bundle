@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Model;
+namespace Harmony\Bundle\RoutingBundle\Model;
 
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Harmony\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 use Symfony\Component\Routing\RouteCompiler;
 

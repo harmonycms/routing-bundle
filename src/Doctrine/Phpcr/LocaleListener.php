@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr;
+namespace Harmony\Bundle\RoutingBundle\Doctrine\Phpcr;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Doctrine\ODM\PHPCR\Event\MoveEventArgs;
-use Symfony\Cmf\Bundle\RoutingBundle\Model\Route as ModelRoute;
+use Harmony\Bundle\RoutingBundle\Model\Route as ModelRoute;
 
 /**
  * Doctrine PHPCR-ODM listener to update the locale on routes based on the URL.

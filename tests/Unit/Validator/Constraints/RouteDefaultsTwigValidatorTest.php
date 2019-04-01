@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Unit\Validator\Constraints;
+namespace Harmony\Bundle\RoutingBundle\Tests\Unit\Validator\Constraints;
 
-use Symfony\Cmf\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTwigValidator;
+use Harmony\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTwigValidator;
 use Twig\Loader\LoaderInterface;
 
 class RouteDefaultsTwigValidatorTest extends RouteDefaultsValidatorTest

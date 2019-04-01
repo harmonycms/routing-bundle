@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Unit\Validator\Constraints;
+namespace Harmony\Bundle\RoutingBundle\Tests\Unit\Validator\Constraints;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Cmf\Bundle\RoutingBundle\Validator\Constraints\RouteDefaults;
+use Harmony\Bundle\RoutingBundle\Validator\Constraints\RouteDefaults;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTest;

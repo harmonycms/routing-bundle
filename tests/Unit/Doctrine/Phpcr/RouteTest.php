@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Unit\Doctrine\Phpcr;
+namespace Harmony\Bundle\RoutingBundle\Tests\Unit\Doctrine\Phpcr;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
 class RouteTest extends TestCase
 {

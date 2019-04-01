@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr;
+namespace Harmony\Bundle\RoutingBundle\Doctrine\Phpcr;
 
 /**
  * An interface for PHPCR route documents.

@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Fixtures\App\DataFixtures\Phpcr;
+namespace Harmony\Bundle\RoutingBundle\Tests\Fixtures\App\DataFixtures\Phpcr;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\PHPCR\Document\Generic;
 use PHPCR\Util\NodeHelper;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 
 class LoadRouteData implements FixtureInterface
 {

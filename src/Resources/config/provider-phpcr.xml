@@ -5,7 +5,7 @@
 
     <services>
 
-        <service id="cmf_routing.phpcr_route_provider" class="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider">
+        <service id="cmf_routing.phpcr_route_provider" class="Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider">
             <argument type="service" id="doctrine_phpcr"/>
             <argument type="service" id="cmf_routing.phpcr_candidates_prefix"/>
             <argument>null</argument>
@@ -19,7 +19,7 @@
                 alias="cmf_routing.phpcr_route_provider"
                 public="true"/>
 
-        <service id="cmf_routing.phpcr_candidates_prefix" class="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\PrefixCandidates">
+        <service id="cmf_routing.phpcr_candidates_prefix" class="Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\PrefixCandidates">
             <argument>%cmf_routing.dynamic.persistence.phpcr.route_basepaths%</argument>
             <argument>%cmf_routing.dynamic.locales%</argument>
             <argument type="service" id="doctrine_phpcr"/>
@@ -27,21 +27,21 @@
             <call method="setManagerName"><argument>%cmf_routing.dynamic.persistence.phpcr.manager_name%</argument></call>
         </service>
 
-        <service id="cmf_routing.phpcr_content_repository" class="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\ContentRepository">
+        <service id="cmf_routing.phpcr_content_repository" class="Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\ContentRepository">
             <argument type="service" id="doctrine_phpcr"/>
             <call method="setManagerName"><argument>%cmf_routing.dynamic.persistence.phpcr.manager_name%</argument></call>
         </service>
 
         <service id="cmf_routing.content_repository" alias="cmf_routing.phpcr_content_repository"/>
 
-        <service id="cmf_routing.phpcrodm_route_idprefix_listener" class="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\IdPrefixListener">
+        <service id="cmf_routing.phpcrodm_route_idprefix_listener" class="Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\IdPrefixListener">
             <argument type="service" id="cmf_routing.phpcr_candidates_prefix"/>
             <tag name="doctrine_phpcr.event_listener" event="postLoad" />
             <tag name="doctrine_phpcr.event_listener" event="postPersist" />
             <tag name="doctrine_phpcr.event_listener" event="postMove" />
         </service>
 
-        <service id="cmf_routing.phpcrodm_route_locale_listener" class="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\LocaleListener">
+        <service id="cmf_routing.phpcrodm_route_locale_listener" class="Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\LocaleListener">
             <argument type="service" id="cmf_routing.phpcr_candidates_prefix"/>
             <argument>%cmf_routing.dynamic.locales%</argument>
             <argument>%cmf_routing.dynamic.auto_locale_pattern%</argument>

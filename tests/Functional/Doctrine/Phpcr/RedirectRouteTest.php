@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Functional\Doctrine\Phpcr;
+namespace Harmony\Bundle\RoutingBundle\Tests\Functional\Doctrine\Phpcr;
 
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
-use Symfony\Cmf\Bundle\RoutingBundle\Tests\Functional\BaseTestCase;
-use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
-use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use Harmony\Bundle\RoutingBundle\Tests\Functional\BaseTestCase;
+use Harmony\Component\Routing\RedirectRouteInterface;
+use Harmony\Component\Routing\RouteReferrersReadInterface;
 
 class RedirectRouteTest extends BaseTestCase
 {

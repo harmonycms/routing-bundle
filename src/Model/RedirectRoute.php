@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Model;
+namespace Harmony\Bundle\RoutingBundle\Model;
 
 use LogicException;
-use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
+use Harmony\Component\Routing\RedirectRouteInterface;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 
 /**

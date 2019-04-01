@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Unit\Doctrine\Orm;
+namespace Harmony\Bundle\RoutingBundle\Tests\Unit\Doctrine\Orm;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
-use Symfony\Cmf\Component\Routing\Candidates\CandidatesInterface;
+use Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route;
+use Harmony\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
+use Harmony\Component\Routing\Candidates\CandidatesInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RouteCollection;

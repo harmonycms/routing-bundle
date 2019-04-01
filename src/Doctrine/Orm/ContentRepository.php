@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm;
+namespace Harmony\Bundle\RoutingBundle\Doctrine\Orm;
 
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
-use Symfony\Cmf\Component\Routing\ContentRepositoryInterface;
+use Harmony\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
+use Harmony\Component\Routing\ContentRepositoryInterface;
 
 /**
  * Abstract content repository for ORM.

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Unit\DependencyInjection;
+namespace Harmony\Bundle\RoutingBundle\Tests\Unit\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionConfigurationTestCase;
-use Symfony\Cmf\Bundle\RoutingBundle\DependencyInjection\CmfRoutingExtension;
-use Symfony\Cmf\Bundle\RoutingBundle\DependencyInjection\Configuration;
+use Harmony\Bundle\RoutingBundle\DependencyInjection\CmfRoutingExtension;
+use Harmony\Bundle\RoutingBundle\DependencyInjection\Configuration;
 
 class ConfigurationTest extends AbstractExtensionConfigurationTestCase
 {
@@ -44,10 +44,10 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'editable' => 'acme_main.some_controller:editableAction',
                 ],
                 'controllers_by_class' => [
-                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'cmf_content.controller:indexAction',
+                    'Harmony\Bundle\ContentBundle\Document\StaticContent' => 'cmf_content.controller:indexAction',
                 ],
                 'templates_by_class' => [
-                    'Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent' => 'CmfContentBundle:StaticContent:index.html.twig',
+                    'Harmony\Bundle\ContentBundle\Document\StaticContent' => 'CmfContentBundle:StaticContent:index.html.twig',
                 ],
                 'persistence' => [
                     'phpcr' => [
@@ -62,7 +62,7 @@ class ConfigurationTest extends AbstractExtensionConfigurationTestCase
                     'orm' => [
                         'enabled' => false,
                         'manager_name' => null,
-                        'route_class' => 'Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route',
+                        'route_class' => 'Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route',
                     ],
                 ],
                 'enabled' => true,

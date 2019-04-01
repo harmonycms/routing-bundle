@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Unit\DependencyInjection;
+namespace Harmony\Bundle\RoutingBundle\Tests\Unit\DependencyInjection;
 
 use Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Symfony\Cmf\Bundle\RoutingBundle\DependencyInjection\CmfRoutingExtension;
-use Symfony\Cmf\Component\Routing\ChainRouter;
+use Harmony\Bundle\RoutingBundle\DependencyInjection\CmfRoutingExtension;
+use Harmony\Component\Routing\ChainRouter;
 use Symfony\Component\DependencyInjection\Reference;
 
 class CmfRoutingExtensionTest extends AbstractExtensionTestCase

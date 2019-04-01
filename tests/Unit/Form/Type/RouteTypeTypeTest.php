@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Unit\Form\Type;
+namespace Harmony\Bundle\RoutingBundle\Tests\Unit\Form\Type;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Cmf\Bundle\RoutingBundle\Form\Type\RouteTypeType;
+use Harmony\Bundle\RoutingBundle\Form\Type\RouteTypeType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RouteTypeTypeTest extends TestCase

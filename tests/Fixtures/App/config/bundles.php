@@ -9,8 +9,8 @@
  * file that was distributed with this source code.
  */
 
-use Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle;
+use Harmony\Bundle\RoutingBundle\HarmonyRoutingBundle;
 
 return [
-    CmfRoutingBundle::class => ['all' => true],
+    HarmonyRoutingBundle::class => ['all' => true],
 ];

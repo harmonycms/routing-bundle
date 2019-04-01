@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Routing;
+namespace Harmony\Bundle\RoutingBundle\Routing;
 
-use Symfony\Cmf\Component\Routing\DynamicRouter as BaseDynamicRouter;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Harmony\Component\Routing\DynamicRouter as BaseDynamicRouter;
+use Harmony\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;

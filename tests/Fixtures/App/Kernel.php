@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Fixtures\App;
+namespace Harmony\Bundle\RoutingBundle\Tests\Fixtures\App;
 
-use Symfony\Cmf\Bundle\ResourceRestBundle\CmfResourceRestBundle;
-use Symfony\Cmf\Component\Testing\HttpKernel\TestKernel;
+use Harmony\Bundle\ResourceRestBundle\CmfResourceRestBundle;
+use Harmony\Component\Testing\HttpKernel\TestKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Kernel extends TestKernel
@@ -33,8 +33,8 @@ class Kernel extends TestKernel
 
         if (class_exists(CmfResourceRestBundle::class)) {
             $this->addBundles([
-                new \Symfony\Cmf\Bundle\ResourceBundle\CmfResourceBundle(),
-                new \Symfony\Cmf\Bundle\ResourceRestBundle\CmfResourceRestBundle(),
+                new \Harmony\Bundle\ResourceBundle\CmfResourceBundle(),
+                new \Harmony\Bundle\ResourceRestBundle\CmfResourceRestBundle(),
             ]);
         }
     }

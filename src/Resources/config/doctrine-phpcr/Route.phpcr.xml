@@ -6,7 +6,7 @@
         https://github.com/doctrine/phpcr-odm/raw/master/doctrine-phpcr-odm-mapping.xsd"
 >
 
-    <document name="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route" referenceable="true">
+    <document name="Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route" referenceable="true">
         <id name="id">
             <generator strategy="PARENT"/>
         </id>

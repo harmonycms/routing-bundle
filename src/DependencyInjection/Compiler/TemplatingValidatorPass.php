@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\DependencyInjection\Compiler;
+namespace Harmony\Bundle\RoutingBundle\DependencyInjection\Compiler;
 
-use Symfony\Cmf\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTemplatingValidator;
+use Harmony\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTemplatingValidator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

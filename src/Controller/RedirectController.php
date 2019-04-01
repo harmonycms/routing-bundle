@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Controller;
+namespace Harmony\Bundle\RoutingBundle\Controller;
 
-use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
+use Harmony\Component\Routing\RedirectRouteInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;

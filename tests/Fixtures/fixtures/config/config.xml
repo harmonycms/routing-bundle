@@ -14,10 +14,10 @@
             match-implicit-locale="true"
         >
             <controller-by-type type="editable">acme_main.some_controller:editableAction</controller-by-type>
-            <controller-by-class class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent">
+            <controller-by-class class="Harmony\Bundle\ContentBundle\Document\StaticContent">
                 cmf_content.controller:indexAction
             </controller-by-class>
-            <template-by-class class="Symfony\Cmf\Bundle\ContentBundle\Document\StaticContent">
+            <template-by-class class="Harmony\Bundle\ContentBundle\Document\StaticContent">
                 CmfContentBundle:StaticContent:index.html.twig
             </template-by-class>
 

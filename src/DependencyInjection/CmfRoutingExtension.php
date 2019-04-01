@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\DependencyInjection;
+namespace Harmony\Bundle\RoutingBundle\DependencyInjection;
 
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route;
+use Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;

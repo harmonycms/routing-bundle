@@ -15,10 +15,10 @@
             extensions:
                 cmf_routing.admin_extension.route_referrers:
                      implements:
-                         - Symfony\Cmf\Component\Routing\RouteReferrersInterface
+                         - Harmony\Component\Routing\RouteReferrersInterface
                 cmf_core.admin_extension.publish_workflow.time_period:
                      implements:
-                         - Symfony\Cmf\Component\Routing\RouteReferrersReadInterface
+                         - Harmony\Component\Routing\RouteReferrersReadInterface
    ```
 
    After:
@@ -30,10 +30,10 @@
             extensions:
                  cmf_sonata_admin_integration.routing.extension.route_referrers:
                      implements:
-                         - Symfony\Cmf\Component\Routing\RouteReferrersInterface
+                         - Harmony\Component\Routing\RouteReferrersInterface
                  cmf_sonata_admin_integration.routing.extension.frontend_link:
                      implements:
-                         - Symfony\Cmf\Component\Routing\RouteReferrersReadInterface
+                         - Harmony\Component\Routing\RouteReferrersReadInterface
    ```
    Admin service names also changed. If you are using the admin, you need to adjust your configuration,
    i.e. in the sonata dashboard:

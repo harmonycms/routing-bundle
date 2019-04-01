@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Unit\Doctrine\Orm;
+namespace Harmony\Bundle\RoutingBundle\Tests\Unit\Doctrine\Orm;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use PHPUnit\Framework\TestCase;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository;
+use Harmony\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository;
 
 class ContentRepositoryTest extends TestCase
 {

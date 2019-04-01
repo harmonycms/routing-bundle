@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Cmf\Bundle\RoutingBundle\Tests\Functional\Controller;
+namespace Harmony\Bundle\RoutingBundle\Tests\Functional\Controller;
 
-use Symfony\Cmf\Bundle\RoutingBundle\Controller\RedirectController;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
-use Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
-use Symfony\Cmf\Bundle\RoutingBundle\Tests\Functional\BaseTestCase;
+use Harmony\Bundle\RoutingBundle\Controller\RedirectController;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
+use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
+use Harmony\Bundle\RoutingBundle\Tests\Functional\BaseTestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class RedirectControllerTest extends BaseTestCase
@@ -22,7 +22,7 @@ class RedirectControllerTest extends BaseTestCase
     const ROUTE_ROOT = '/test/routing';
 
     /**
-     * @var \Symfony\Cmf\Bundle\RoutingBundle\Controller\RedirectController
+     * @var \Harmony\Bundle\RoutingBundle\Controller\RedirectController
      */
     protected $controller;
 
