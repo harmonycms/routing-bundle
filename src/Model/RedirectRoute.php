@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Route as SymfonyRoute;
  *
  * @package Harmony\Bundle\RoutingBundle\Model
  */
-class RedirectRoute extends Route implements RedirectRouteInterface
+abstract class RedirectRoute extends Route implements RedirectRouteInterface
 {
 
     /**
