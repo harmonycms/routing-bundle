@@ -19,6 +19,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use function array_key_exists;
+use function array_keys;
+use function array_map;
+use function array_unique;
+use function array_values;
+use function count;
+use function trim;
 
 /**
  * @author Philippo de Santis
@@ -27,13 +34,19 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class HarmonyRoutingExtension extends Extension
 {
+
     /**
-     * {@inheritdoc}
+     * Loads a specific configuration.
+     *
+     * @param array            $configs
+     * @param ContainerBuilder $container
+     *
+     * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container)
     {
         $config = $this->processConfiguration(new Configuration(), $configs);
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         if ($this->isConfigEnabled($container, $config['dynamic'])) {
             $this->setupDynamicRouter($config['dynamic'], $container, $loader);
@@ -45,6 +58,33 @@ class HarmonyRoutingExtension extends Extension
         $loader->load('validators.xml');
     }
 
+    /**
+     * Returns the base path for the XSD files.
+     *
+     * @return string The XSD base path
+     */
+    public function getXsdValidationBasePath()
+    {
+        return __DIR__ . '/../Resources/config/schema';
+    }
+
+    /**
+     * Returns the namespace to be used for this extension (XML namespace).
+     *
+     * @return string The XML namespace
+     */
+    public function getNamespace()
+    {
+        return 'http://cmf.symfony.com/schema/dic/routing';
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param LoaderInterface  $loader
+     *
+     * @throws \Exception
+     */
     private function setupChainRouter(array $config, ContainerBuilder $container, LoaderInterface $loader)
     {
         $loader->load('routing-chain.xml');
@@ -58,6 +98,13 @@ class HarmonyRoutingExtension extends Extension
         }
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param LoaderInterface  $loader
+     *
+     * @throws \Exception
+     */
     private function setupFormTypes(array $config, ContainerBuilder $container, LoaderInterface $loader)
     {
         $loader->load('form-type.xml');
@@ -77,13 +124,20 @@ class HarmonyRoutingExtension extends Extension
      * @param array            $config    the compiled configuration for the dynamic router
      * @param ContainerBuilder $container the container builder
      * @param LoaderInterface  $loader    the configuration loader
+     *
+     * @throws \Exception
      */
     private function setupDynamicRouter(array $config, ContainerBuilder $container, LoaderInterface $loader)
     {
         $loader->load('routing-dynamic.xml');
 
         // strip whitespace (XML support)
-        foreach (['controllers_by_type', 'controllers_by_class', 'templates_by_class', 'route_filters_by_id'] as $option) {
+        foreach ([
+                     'controllers_by_type',
+                     'controllers_by_class',
+                     'templates_by_class',
+                     'route_filters_by_id'
+                 ] as $option) {
             $config[$option] = array_map('trim', $config[$option]);
         }
 
@@ -99,26 +153,28 @@ class HarmonyRoutingExtension extends Extension
         }
 
         $this->configureParameters($container, $config, [
-            'generic_controller' => 'generic_controller',
-            'controllers_by_type' => 'controllers_by_type',
-            'controllers_by_class' => 'controllers_by_class',
-            'templates_by_class' => 'templates_by_class',
-            'uri_filter_regexp' => 'uri_filter_regexp',
+            'generic_controller'     => 'generic_controller',
+            'controllers_by_type'    => 'controllers_by_type',
+            'controllers_by_class'   => 'controllers_by_class',
+            'templates_by_class'     => 'templates_by_class',
+            'uri_filter_regexp'      => 'uri_filter_regexp',
             'route_collection_limit' => 'route_collection_limit',
-            'limit_candidates' => 'dynamic.limit_candidates',
-            'locales' => 'dynamic.locales',
-            'auto_locale_pattern' => 'dynamic.auto_locale_pattern',
+            'limit_candidates'       => 'dynamic.limit_candidates',
+            'locales'                => 'dynamic.locales',
+            'auto_locale_pattern'    => 'dynamic.auto_locale_pattern',
         ]);
 
-        $hasProvider = false;
+        $hasProvider          = false;
         $hasContentRepository = false;
-        if ($config['persistence']['phpcr']['enabled']) {
-            $this->loadPhpcrProvider($config['persistence']['phpcr'], $loader, $container, $locales, $config['match_implicit_locale']);
+        if ($config['persistence']['mongodb']['enabled']) {
+            $this->loadMongoDbProvider($config['persistence']['mongodb'], $loader, $container, $locales,
+                $config['match_implicit_locale']);
             $hasProvider = $hasContentRepository = true;
         }
 
         if ($config['persistence']['orm']['enabled']) {
-            $this->loadOrmProvider($config['persistence']['orm'], $loader, $container, $config['match_implicit_locale']);
+            $this->loadOrmProvider($config['persistence']['orm'], $loader, $container,
+                $config['match_implicit_locale']);
             $hasProvider = $hasContentRepository = true;
         }
 
@@ -142,7 +198,7 @@ class HarmonyRoutingExtension extends Extension
             $generator = $container->getDefinition('cmf_routing.generator');
             $generator->addMethodCall('setContentRepository', [new Reference('cmf_routing.content_repository')]);
             $container->getDefinition('cmf_routing.enhancer.content_repository')
-                      ->addTag('dynamic_router_route_enhancer', ['priority' => 100]);
+                ->addTag('dynamic_router_route_enhancer', ['priority' => 100]);
         }
 
         $dynamic = $container->getDefinition('cmf_routing.dynamic_router');
@@ -155,12 +211,12 @@ class HarmonyRoutingExtension extends Extension
 
         if (count($config['controllers_by_class']) > 0) {
             $container->getDefinition('cmf_routing.enhancer.controllers_by_class')
-                      ->addTag('dynamic_router_route_enhancer', ['priority' => 50]);
+                ->addTag('dynamic_router_route_enhancer', ['priority' => 50]);
         }
 
         if (count($config['templates_by_class']) > 0) {
             $container->getDefinition('cmf_routing.enhancer.templates_by_class')
-                      ->addTag('dynamic_router_route_enhancer', ['priority' => 40]);
+                ->addTag('dynamic_router_route_enhancer', ['priority' => 40]);
 
             /*
              * The CoreBundle prepends the controller from ContentBundle if the
@@ -184,17 +240,17 @@ class HarmonyRoutingExtension extends Extension
             $definition->replaceArgument(2, $controllerForTemplates);
 
             $container->getDefinition('cmf_routing.enhancer.controller_for_templates_by_class')
-                      ->addTag('dynamic_router_route_enhancer', ['priority' => 30]);
+                ->addTag('dynamic_router_route_enhancer', ['priority' => 30]);
         }
 
         if (null !== $config['generic_controller'] && $defaultController !== $config['generic_controller']) {
             $container->getDefinition('cmf_routing.enhancer.explicit_template')
-                      ->addTag('dynamic_router_route_enhancer', ['priority' => 10]);
+                ->addTag('dynamic_router_route_enhancer', ['priority' => 10]);
         }
 
         if (null !== $defaultController) {
             $container->getDefinition('cmf_routing.enhancer.default_controller')
-                      ->addTag('dynamic_router_route_enhancer', ['priority' => -100]);
+                ->addTag('dynamic_router_route_enhancer', ['priority' => - 100]);
         }
 
         if (count($config['route_filters_by_id']) > 0) {
@@ -208,20 +264,31 @@ class HarmonyRoutingExtension extends Extension
         $dynamic->replaceArgument(2, new Reference($config['url_generator']));
     }
 
-    private function loadPhpcrProvider(array $config, LoaderInterface $loader, ContainerBuilder $container, array $locales, $matchImplicitLocale)
+    /**
+     * @param array            $config
+     * @param LoaderInterface  $loader
+     * @param ContainerBuilder $container
+     * @param array            $locales
+     * @param                  $matchImplicitLocale
+     *
+     * @throws \Exception
+     */
+    private function loadMongoDbProvider(array $config, LoaderInterface $loader, ContainerBuilder $container,
+                                         array $locales, $matchImplicitLocale)
     {
-        $loader->load('provider-phpcr.xml');
+        $loader->load('provider-mongodb.xml');
 
-        $container->setParameter('cmf_routing.backend_type_phpcr', true);
-        $container->setParameter('cmf_routing.dynamic.persistence.phpcr.route_basepaths', array_values(array_unique($config['route_basepaths'])));
+        $container->setParameter('cmf_routing.backend_type_mongodb', true);
+        $container->setParameter('cmf_routing.dynamic.persistence.mongodb.route_basepaths',
+            array_values(array_unique($config['route_basepaths'])));
 
-        $container->setParameter('cmf_routing.dynamic.persistence.phpcr.manager_name', $config['manager_name']);
+        $container->setParameter('cmf_routing.dynamic.persistence.mongodb.manager_name', $config['manager_name']);
 
         if (0 === count($locales)) {
-            $container->removeDefinition('cmf_routing.phpcrodm_route_locale_listener');
+            $container->removeDefinition('cmf_routing.mongodb_route_locale_listener');
         } elseif (!$matchImplicitLocale) {
             // remove all but the prefixes configuration from the service definition.
-            $definition = $container->getDefinition('cmf_routing.phpcr_candidates_prefix');
+            $definition = $container->getDefinition('cmf_routing.mongodb_candidates_prefix');
             $definition->setArguments([$definition->getArgument(0)]);
         }
 
@@ -230,19 +297,35 @@ class HarmonyRoutingExtension extends Extension
         }
     }
 
+    /**
+     * @param LoaderInterface  $loader
+     * @param ContainerBuilder $container
+     *
+     * @throws \Exception
+     */
     private function loadInitializer(LoaderInterface $loader, ContainerBuilder $container)
     {
-        $initializedBasepaths = $container->getParameter($this->getAlias().'.dynamic.persistence.phpcr.route_basepaths');
+        $initializedBasepaths = $container->getParameter($this->getAlias() .
+            '.dynamic.persistence.mongodb.route_basepaths');
 
         $container->setParameter(
-            $this->getAlias().'.dynamic.persistence.phpcr.initialized_basepaths',
+            $this->getAlias() . '.dynamic.persistence.mongodb.initialized_basepaths',
             $initializedBasepaths
         );
 
-        $loader->load('initializer-phpcr.xml');
+        $loader->load('initializer-mongodb.xml');
     }
 
-    private function loadOrmProvider(array $config, LoaderInterface $loader, ContainerBuilder $container, $matchImplicitLocale)
+    /**
+     * @param array            $config
+     * @param LoaderInterface  $loader
+     * @param ContainerBuilder $container
+     * @param                  $matchImplicitLocale
+     *
+     * @throws \Exception
+     */
+    private function loadOrmProvider(array $config, LoaderInterface $loader, ContainerBuilder $container,
+                                     $matchImplicitLocale)
     {
         $loader->load('provider-orm.xml');
 
@@ -264,27 +347,13 @@ class HarmonyRoutingExtension extends Extension
     /**
      * @param ContainerBuilder $container          The container builder
      * @param array            $config             The config array
-     * @param array            $settingToParameter An array with setting to parameter mappings (key = setting, value = parameter name without alias prefix)
+     * @param array            $settingToParameter An array with setting to parameter mappings (key = setting, value =
+     *                                             parameter name without alias prefix)
      */
     private function configureParameters(ContainerBuilder $container, array $config, array $settingToParameter)
     {
         foreach ($settingToParameter as $setting => $parameter) {
-            $container->setParameter('cmf_routing.'.$parameter, $config[$setting]);
+            $container->setParameter('cmf_routing.' . $parameter, $config[$setting]);
         }
-    }
-
-    /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
-     */
-    public function getXsdValidationBasePath()
-    {
-        return __DIR__.'/../Resources/config/schema';
-    }
-
-    public function getNamespace()
-    {
-        return 'http://cmf.symfony.com/schema/dic/routing';
     }
 }
