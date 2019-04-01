@@ -11,8 +11,16 @@
 
 namespace Harmony\Bundle\RoutingBundle\Doctrine\Orm;
 
+use Exception;
 use Harmony\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
 use Symfony\Cmf\Component\Routing\ContentRepositoryInterface;
+use function count;
+use function explode;
+use function get_class;
+use function implode;
+use function is_object;
+use function reset;
+use function sprintf;
 
 /**
  * Abstract content repository for ORM.
@@ -26,8 +34,13 @@ class ContentRepository extends DoctrineProvider implements ContentRepositoryInt
 {
 
     /**
-     * {@inheritdoc}
+     * Return a content object by it's id or null if there is none.
+     * If the returned content implements RouteReferrersReadInterface, it will
+     * be used to get the route from it to generate an URL.
+     *
      * @param string $id The ID contains both model name and id, separated by a colon
+     *
+     * @return object A content that matches this id
      */
     public function findById($id)
     {
@@ -37,12 +50,17 @@ class ContentRepository extends DoctrineProvider implements ContentRepositoryInt
     }
 
     /**
-     * {@inheritdoc}
+     * Return the content identifier for the provided content object for
+     * debugging purposes.
+     *
+     * @param object $content A content instance
+     *
+     * @return string|null $id id of the content object or null if unable to determine an id
      */
     public function getContentId($content)
     {
         if (!is_object($content)) {
-            return;
+            return null;
         }
 
         try {
@@ -50,13 +68,13 @@ class ContentRepository extends DoctrineProvider implements ContentRepositoryInt
             $meta  = $this->getObjectManager()->getClassMetadata($class);
             $ids   = $meta->getIdentifierValues($content);
             if (1 !== count($ids)) {
-                throw new \Exception(sprintf('Class "%s" must use only one identifier', $class));
+                throw new Exception(sprintf('Class "%s" must use only one identifier', $class));
             }
 
             return implode(':', [$class, reset($ids)]);
         }
-        catch (\Exception $e) {
-            return;
+        catch (Exception $e) {
+            return null;
         }
     }
 
