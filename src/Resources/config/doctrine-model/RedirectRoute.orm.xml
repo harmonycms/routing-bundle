@@ -3,11 +3,11 @@
                   xsi:schemaLocation="https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <mapped-superclass name="Harmony\Bundle\RoutingBundle\Model\RedirectRoute">
-        <field name="uri" type="uri" nullable="true"/>
+        <field name="uri" nullable="true"/>
         <field name="routeName" nullable="true"/>
         <field name="permanent" type="boolean"/>
         <field name="parameters" nullable="true"/>
-        <many-to-one target-entity="Harmony\Bundle\RoutingBundle\Model\Route" field="id"/>
+        <many-to-one field="routeTarget" target-entity="Harmony\Bundle\RoutingBundle\Model\Route"/>
     </mapped-superclass>
 
 </doctrine-mapping>
