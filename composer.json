@@ -1,42 +1,40 @@
 {
-    "name": "symfony-cmf/routing-bundle",
+    "name": "harmony/routing-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony RoutingBundle",
-    "keywords": [
-        "routing",
-        "database"
-    ],
+    "description": "Harmony RoutingBundle",
+    "keywords": ["routing", "database", "orm", "mongodb"],
     "homepage": "http://cmf.symfony.com",
     "license": "MIT",
     "authors": [
         {
             "name": "Symfony CMF Community",
             "homepage": "https://github.com/symfony-cmf/RoutingBundle/contributors"
+        },
+        {
+            "name": "David Sanchez",
+            "email": "david38sanchez@gmail.com",
+            "homepage": "http://davidsanchez.me",
+            "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.1",
         "symfony-cmf/routing": "^2.1.0",
-        "symfony/framework-bundle": "^2.8 || ^3.3 || ^4.0",
-        "twig/twig": "^1.35 || ^2.4.4"
+        "symfony/framework-bundle": "^4.0"
     },
     "require-dev": {
-        "doctrine/phpcr-odm": "^1.4|^2.0",
         "symfony/phpunit-bridge": "^4.2.2",
         "matthiasnoback/symfony-dependency-injection-test": "^2.3.1",
         "matthiasnoback/symfony-config-test": "^3.1.1",
-        "doctrine/orm": "^2.5",
         "symfony-cmf/testing": "^2.1.11",
         "doctrine/data-fixtures": "^1.0.0",
         "symfony/validator": "^2.8 || ^3.3 || ^4.0"
     },
     "suggest": {
-        "doctrine/phpcr-odm": "To enable support for the PHPCR ODM documents (^1.4)",
-        "doctrine/phpcr-bundle": "To enable support for the PHPCR ODM documents",
-        "doctrine/orm": "To enable support for the ORM entities (^2.5)"
+        "emulienfou/orm-pack": "A Symfony Pack for Doctrine ORM",
+        "emulienfou/mongodb-pack": "A pack for the Doctrine MongoDB ODM"
     },
     "conflict": {
-        "doctrine/phpcr-odm": "<1.4",
         "twig/twig": "<2",
         "phpunit/phpunit": "<6"
     },
