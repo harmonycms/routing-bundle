@@ -69,11 +69,7 @@ class HarmonyRoutingBundle extends Bundle
             $this->buildBaseCompilerPass(DoctrineMongoDBMappingsPass::class, OdmXmlDriver::class, 'mongodb')
         );
         $container->addCompilerPass(DoctrineMongoDBMappingsPass::createXmlMappingDriver(
-            [
-                realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model',
-                realpath(__DIR__ .
-                    '/Resources/config/doctrine-mongodb')              => 'Harmony\Bundle\RoutingBundle\Doctrine\MongoDB'
-            ],
+            [realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model'],
             ['cmf_routing.dynamic.persistence.mongodb.manager_name'],
             'cmf_routing.backend_type_mongodb',
             ['CmfRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\MongoDB']
@@ -98,11 +94,7 @@ class HarmonyRoutingBundle extends Bundle
         );
         $container->addCompilerPass(
             DoctrineOrmMappingsPass::createXmlMappingDriver(
-                [
-                    realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model',
-                    realpath(__DIR__ .
-                        '/Resources/config/doctrine-orm')                  => 'Harmony\Bundle\RoutingBundle\Doctrine\Orm'
-                ],
+                [realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model'],
                 ['cmf_routing.dynamic.persistence.orm.manager_name'],
                 'cmf_routing.backend_type_orm_default',
                 ['CmfRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\Orm']

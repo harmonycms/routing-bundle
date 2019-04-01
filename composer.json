@@ -47,5 +47,10 @@
         "psr-4": {
             "Harmony\\Bundle\\RoutingBundle\\Tests\\": "tests/"
         }
+    },
+    "extra": {
+        "symfony": {
+            "id": "01D7CSVK1E3HYCHNS63YA8QX2B"
+        }
     }
 }
