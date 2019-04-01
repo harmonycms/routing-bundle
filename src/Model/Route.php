@@ -31,6 +31,13 @@ abstract class Route extends SymfonyRoute implements RouteObjectInterface
 {
 
     /**
+     * Unique id of this route.
+     *
+     * @var string
+     */
+    protected $id;
+
+    /**
      * The referenced content object.
      *
      * @var object
@@ -95,7 +102,7 @@ abstract class Route extends SymfonyRoute implements RouteObjectInterface
      */
     public function getRouteKey()
     {
-        return $this->getId();
+        return $this->id;
     }
 
     /**
