@@ -12,14 +12,14 @@
 namespace Harmony\Bundle\RoutingBundle\Tests\Unit\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionConfigurationTestCase;
-use Harmony\Bundle\RoutingBundle\DependencyInjection\CmfRoutingExtension;
+use Harmony\Bundle\RoutingBundle\DependencyInjection\HarmonyRoutingExtension;
 use Harmony\Bundle\RoutingBundle\DependencyInjection\Configuration;
 
 class ConfigurationTest extends AbstractExtensionConfigurationTestCase
 {
     protected function getContainerExtension()
     {
-        return new CmfRoutingExtension();
+        return new HarmonyRoutingExtension();
     }
 
     protected function getConfiguration()

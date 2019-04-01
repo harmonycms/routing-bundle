@@ -25,7 +25,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  * @author David Buchmann
  * @author Wouter de Jong <wouter@wouterj.nl>
  */
-class CmfRoutingExtension extends Extension
+class HarmonyRoutingExtension extends Extension
 {
     /**
      * {@inheritdoc}
