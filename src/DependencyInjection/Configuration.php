@@ -11,14 +11,16 @@
 
 namespace Harmony\Bundle\RoutingBundle\DependencyInjection;
 
-use Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route;
+use Harmony\Bundle\RoutingBundle\Doctrine\MongoDB\Route as RouteMongoDB;
+use Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route as RouteOrm;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use function array_filter;
+use function count;
 
 /**
  * This class contains the configuration information for the bundle.
- *
  * This information is solely responsible for how the different configuration
  * sections are normalized, and merged.
  *
@@ -26,6 +28,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+
     /**
      * Returns the config tree builder.
      *
@@ -34,7 +37,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('harmony_routing');
-        $root = $treeBuilder->getRootNode();
+        $root        = $treeBuilder->getRootNode();
 
         $this->addChainSection($root);
         $this->addDynamicSection($root);
@@ -42,6 +45,9 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
+    /**
+     * @param ArrayNodeDefinition $root
+     */
     private function addChainSection(ArrayNodeDefinition $root)
     {
         $root
@@ -62,6 +68,9 @@ class Configuration implements ConfigurationInterface
         ;
     }
 
+    /**
+     * @param ArrayNodeDefinition $root
+     */
     private function addDynamicSection(ArrayNodeDefinition $root)
     {
         $root
@@ -101,33 +110,20 @@ class Configuration implements ConfigurationInterface
                                 ->thenInvalid('Only one persistence layer can be enabled at the same time.')
                             ->end()
                             ->children()
-                                ->arrayNode('phpcr')
+                                ->arrayNode('mongodb')
                                     ->addDefaultsIfNotSet()
                                     ->canBeEnabled()
-                                    ->fixXmlConfig('route_basepath')
                                     ->children()
                                         ->scalarNode('manager_name')->defaultNull()->end()
-                                        ->arrayNode('route_basepaths')
-                                            ->beforeNormalization()
-                                                ->ifString()
-                                                ->then(function ($v) {
-                                                    return [$v];
-                                                })
-                                            ->end()
-                                            ->prototype('scalar')->end()
-                                            ->defaultValue(['/cms/routes'])
-                                        ->end() // route_basepaths
-                                        ->booleanNode('enable_initializer')
-                                            ->defaultValue(true)
-                                        ->end()
+                                        ->scalarNode('route_class')->defaultValue(RouteMongoDB::class)->end()
                                     ->end()
-                                ->end() // phpcr
+                                ->end() // mongodb
                                 ->arrayNode('orm')
                                     ->addDefaultsIfNotSet()
                                     ->canBeEnabled()
                                     ->children()
                                         ->scalarNode('manager_name')->defaultNull()->end()
-                                        ->scalarNode('route_class')->defaultValue(Route::class)->end()
+                                        ->scalarNode('route_class')->defaultValue(RouteOrm::class)->end()
                                     ->end()
                                 ->end() // orm
                             ->end()
