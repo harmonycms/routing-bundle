@@ -11,7 +11,7 @@
 
 namespace Harmony\Bundle\RoutingBundle\Tests\Unit\DependencyInjection;
 
-use Harmony\Component\Testing\Unit\XmlSchemaTestCase;
+use Symfony\Cmf\Component\Testing\Unit\XmlSchemaTestCase;
 
 class XmlSchemaTest extends XmlSchemaTestCase
 {

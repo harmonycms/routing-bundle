@@ -14,8 +14,8 @@ namespace Harmony\Bundle\RoutingBundle\Tests\Functional\Doctrine\Phpcr;
 use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute;
 use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Harmony\Bundle\RoutingBundle\Tests\Functional\BaseTestCase;
-use Harmony\Component\Routing\RedirectRouteInterface;
-use Harmony\Component\Routing\RouteReferrersReadInterface;
+use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
+use Symfony\Cmf\Component\Routing\RouteReferrersReadInterface;
 
 class RedirectRouteTest extends BaseTestCase
 {

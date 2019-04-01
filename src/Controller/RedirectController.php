@@ -11,7 +11,7 @@
 
 namespace Harmony\Bundle\RoutingBundle\Controller;
 
-use Harmony\Component\Routing\RedirectRouteInterface;
+use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;

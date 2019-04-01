@@ -11,8 +11,8 @@
 
 namespace Harmony\Bundle\RoutingBundle\Routing;
 
-use Harmony\Component\Routing\DynamicRouter as BaseDynamicRouter;
-use Harmony\Component\Routing\RouteObjectInterface;
+use Symfony\Cmf\Component\Routing\DynamicRouter as BaseDynamicRouter;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;

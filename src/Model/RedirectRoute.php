@@ -12,7 +12,7 @@
 namespace Harmony\Bundle\RoutingBundle\Model;
 
 use LogicException;
-use Harmony\Component\Routing\RedirectRouteInterface;
+use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 
 /**

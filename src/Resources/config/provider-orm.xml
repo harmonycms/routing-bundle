@@ -12,7 +12,7 @@
 
         <service id="cmf_routing.content_repository" alias="cmf_routing.orm_content_repository"/>
 
-        <service id="cmf_routing.orm_candidates" class="Harmony\Component\Routing\Candidates\Candidates">
+        <service id="cmf_routing.orm_candidates" class="Symfony\Cmf\Component\Routing\Candidates\Candidates">
             <argument>%cmf_routing.dynamic.locales%</argument>
             <argument>%cmf_routing.dynamic.limit_candidates%</argument>
         </service>

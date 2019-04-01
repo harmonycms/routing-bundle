@@ -14,7 +14,7 @@ namespace Harmony\Bundle\RoutingBundle\Tests\Unit\DependencyInjection;
 use Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Harmony\Bundle\RoutingBundle\DependencyInjection\CmfRoutingExtension;
-use Harmony\Component\Routing\ChainRouter;
+use Symfony\Cmf\Component\Routing\ChainRouter;
 use Symfony\Component\DependencyInjection\Reference;
 
 class CmfRoutingExtensionTest extends AbstractExtensionTestCase

@@ -12,35 +12,21 @@
 namespace Harmony\Bundle\RoutingBundle\Doctrine\Orm;
 
 use Harmony\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
-use Harmony\Component\Routing\ContentRepositoryInterface;
+use Symfony\Cmf\Component\Routing\ContentRepositoryInterface;
 
 /**
  * Abstract content repository for ORM.
- *
  * This repository follows the pattern of FQN:id. That is, the full model class
  * name, then a colon, then the id. For example "Acme\Content:12".
- *
  * This will only work with single column ids.
  *
  * @author teito
  */
 class ContentRepository extends DoctrineProvider implements ContentRepositoryInterface
 {
-    /**
-     * Determine target class and id for this content.
-     *
-     * @param mixed $identifier as produced by getContentId
-     *
-     * @return array with model first element, id second
-     */
-    protected function getModelAndId($identifier)
-    {
-        return explode(':', $identifier, 2);
-    }
 
     /**
      * {@inheritdoc}
-     *
      * @param string $id The ID contains both model name and id, separated by a colon
      */
     public function findById($id)
@@ -61,15 +47,28 @@ class ContentRepository extends DoctrineProvider implements ContentRepositoryInt
 
         try {
             $class = get_class($content);
-            $meta = $this->getObjectManager()->getClassMetadata($class);
-            $ids = $meta->getIdentifierValues($content);
+            $meta  = $this->getObjectManager()->getClassMetadata($class);
+            $ids   = $meta->getIdentifierValues($content);
             if (1 !== count($ids)) {
                 throw new \Exception(sprintf('Class "%s" must use only one identifier', $class));
             }
 
             return implode(':', [$class, reset($ids)]);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             return;
         }
+    }
+
+    /**
+     * Determine target class and id for this content.
+     *
+     * @param mixed $identifier as produced by getContentId
+     *
+     * @return array with model first element, id second
+     */
+    protected function getModelAndId($identifier)
+    {
+        return explode(':', $identifier, 2);
     }
 }

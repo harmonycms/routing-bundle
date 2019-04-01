@@ -18,7 +18,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route;
 use Harmony\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider;
-use Harmony\Component\Routing\Candidates\CandidatesInterface;
+use Symfony\Cmf\Component\Routing\Candidates\CandidatesInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RouteCollection;

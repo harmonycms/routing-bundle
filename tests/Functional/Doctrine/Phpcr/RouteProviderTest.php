@@ -15,7 +15,7 @@ use Doctrine\ODM\PHPCR\Document\Generic;
 use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\RouteProvider;
 use Harmony\Bundle\RoutingBundle\Tests\Functional\BaseTestCase;
-use Harmony\Component\Routing\RouteObjectInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouteCollection;
 

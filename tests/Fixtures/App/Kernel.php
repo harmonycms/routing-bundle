@@ -12,7 +12,7 @@
 namespace Harmony\Bundle\RoutingBundle\Tests\Fixtures\App;
 
 use Harmony\Bundle\ResourceRestBundle\CmfResourceRestBundle;
-use Harmony\Component\Testing\HttpKernel\TestKernel;
+use Symfony\Cmf\Component\Testing\HttpKernel\TestKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Kernel extends TestKernel

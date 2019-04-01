@@ -12,7 +12,7 @@
 namespace Harmony\Bundle\RoutingBundle\Tests\Functional\Doctrine\Orm;
 
 use Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route;
-use Harmony\Component\Testing\Functional\BaseTestCase as ComponentBaseTestCase;
+use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as ComponentBaseTestCase;
 
 class OrmTestCase extends ComponentBaseTestCase
 {

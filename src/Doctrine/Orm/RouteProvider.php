@@ -15,15 +15,14 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Harmony\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
-use Harmony\Component\Routing\Candidates\CandidatesInterface;
-use Harmony\Component\Routing\RouteProviderInterface;
+use Symfony\Cmf\Component\Routing\Candidates\CandidatesInterface;
+use Symfony\Cmf\Component\Routing\RouteProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Provider loading routes from Doctrine.
- *
  * This is <strong>NOT</strong> not a doctrine repository but just the route
  * provider for the NestedMatcher. (you could of course implement this
  * interface in a repository class, if you need that)
@@ -32,6 +31,7 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class RouteProvider extends DoctrineProvider implements RouteProviderInterface
 {
+
     /**
      * @var CandidatesInterface
      */
@@ -92,7 +92,8 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
 
             try {
                 return $this->getRouteRepository()->findBy([], null, $this->routeCollectionLimit ?: null);
-            } catch (TableNotFoundException $e) {
+            }
+            catch (TableNotFoundException $e) {
                 return [];
             }
         }
@@ -102,7 +103,8 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
             // TODO: if we do findByName with multivalue, we need to filter with isCandidate afterwards
             try {
                 $routes[] = $this->getRouteByName($name);
-            } catch (RouteNotFoundException $e) {
+            }
+            catch (RouteNotFoundException $e) {
                 // not found
             }
         }

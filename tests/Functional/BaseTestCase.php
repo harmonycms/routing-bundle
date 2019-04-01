@@ -15,7 +15,7 @@ use Doctrine\ODM\PHPCR\DocumentManager;
 use PHPCR\Util\PathHelper;
 use Harmony\Bundle\RoutingBundle\Doctrine\Phpcr\Route;
 use Harmony\Bundle\RoutingBundle\Tests\Fixtures\App\Document\Content;
-use Harmony\Component\Testing\Functional\BaseTestCase as ComponentBaseTestCase;
+use Symfony\Cmf\Component\Testing\Functional\BaseTestCase as ComponentBaseTestCase;
 
 class BaseTestCase extends ComponentBaseTestCase
 {
