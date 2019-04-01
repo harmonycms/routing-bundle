@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Harmony RoutingBundle",
     "keywords": ["routing", "database", "orm", "mongodb"],
-    "homepage": "http://cmf.symfony.com",
+    "homepage": "",
     "license": "MIT",
     "authors": [
         {
@@ -46,11 +46,6 @@
     "autoload-dev": {
         "psr-4": {
             "Harmony\\Bundle\\RoutingBundle\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.x-dev"
         }
     }
 }
