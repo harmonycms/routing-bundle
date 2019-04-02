@@ -94,7 +94,7 @@ class HarmonyRoutingBundle extends Bundle
             DoctrineOrmMappingsPass::createXmlMappingDriver(
                 [realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model'],
                 ['harmony_routing.dynamic.persistence.orm.manager_name'],
-                true,
+                'harmony_routing.backend_type_orm_default',
                 ['HarmonyRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\Orm']
             )
         );
