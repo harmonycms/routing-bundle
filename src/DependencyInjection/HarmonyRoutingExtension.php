@@ -332,7 +332,7 @@ class HarmonyRoutingExtension extends Extension
 
         $container->setParameter('harmony_routing.backend_type_orm', true);
         $container->setParameter('harmony_routing.dynamic.persistence.orm.manager_name', $config['manager_name']);
-        $container->setParameter('cmf_routing.backend_type_orm_default', true);
+        $container->setParameter('harmony_routing.backend_type_orm_default', true);
 
         if (!$matchImplicitLocale) {
             // remove the locales argument from the candidates
