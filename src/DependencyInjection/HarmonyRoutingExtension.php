@@ -180,11 +180,11 @@ class HarmonyRoutingExtension extends Extension
             $hasProvider = $hasContentRepository = true;
         }
 
-        //        if (isset($config['route_provider_service_id'])) {
-        //            $container->setAlias('harmony_routing.route_provider', $config['route_provider_service_id']);
-        //            $container->getAlias('harmony_routing.route_provider')->setPublic(true);
-        //            $hasProvider = true;
-        //        }
+        if (isset($config['route_provider_service_id'])) {
+            $container->setAlias('harmony_routing.route_provider', $config['route_provider_service_id']);
+            $container->getAlias('harmony_routing.route_provider')->setPublic(true);
+            $hasProvider = true;
+        }
 
         if (!$hasProvider) {
             throw new InvalidConfigurationException('When the dynamic router is enabled, you need to either enable one of the persistence layers or set the harmony_routing.dynamic.route_provider_service_id option');
@@ -332,6 +332,7 @@ class HarmonyRoutingExtension extends Extension
 
         $container->setParameter('harmony_routing.backend_type_orm', true);
         $container->setParameter('harmony_routing.dynamic.persistence.orm.manager_name', $config['manager_name']);
+        $container->setParameter('cmf_routing.backend_type_orm_default', true);
 
         if (!$matchImplicitLocale) {
             // remove the locales argument from the candidates
