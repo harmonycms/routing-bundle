@@ -41,7 +41,7 @@ class RouteTypeType extends AbstractType
 
         $resolver->setDefaults([
             'choices'            => $choices,
-            'translation_domain' => 'CmfRoutingBundle',
+            'translation_domain' => 'HarmonyRoutingBundle',
         ]);
     }
 

@@ -7,7 +7,7 @@
     <services>
 
         <service id="harmony_routing.initializer" class="Doctrine\Bundle\PHPCRBundle\Initializer\GenericInitializer">
-            <argument>CmfRoutingBundle</argument>
+            <argument>HarmonyRoutingBundle</argument>
             <argument>%harmony_routing.dynamic.persistence.phpcr.initialized_basepaths%</argument>
             <tag name="doctrine_phpcr.initializer"/>
         </service>

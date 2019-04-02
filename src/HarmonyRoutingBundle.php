@@ -30,7 +30,7 @@ use function realpath;
 use function sprintf;
 
 /**
- * Class CmfRoutingBundle
+ * Class HrmonyRoutingBundle
  *
  * @package Harmony\Bundle\RoutingBundle
  */
@@ -70,7 +70,7 @@ class HarmonyRoutingBundle extends Bundle
             [realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model'],
             ['harmony_routing.dynamic.persistence.mongodb.manager_name'],
             'harmony_routing.backend_type_mongodb',
-            ['CmfRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\MongoDB']
+            ['HarmonyRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\MongoDB']
         )
         );
     }
@@ -95,7 +95,7 @@ class HarmonyRoutingBundle extends Bundle
                 [realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model'],
                 ['harmony_routing.dynamic.persistence.orm.manager_name'],
                 true,
-                ['CmfRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\Orm']
+                ['HarmonyRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\Orm']
             )
         );
     }
