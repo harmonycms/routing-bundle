@@ -15,6 +15,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Harmony\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
+use Harmony\Bundle\RoutingBundle\Model\Route as RouteModel;
 use Symfony\Cmf\Component\Routing\Candidates\CandidatesInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Component\Routing\RouteProviderInterface;
@@ -52,7 +53,7 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
         parent::__construct($managerRegistry,
             $managerRegistry->getManager()
                 ->getMetadataFactory()
-                ->getMetadataFor(RouteObjectInterface::class)
+                ->getMetadataFor(RouteModel::class)
                 ->getName());
         $this->candidatesStrategy = $candidatesStrategy;
     }
