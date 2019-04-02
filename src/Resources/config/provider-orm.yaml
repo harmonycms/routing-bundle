@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Harmony\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository:
+        calls:
+            - [setManagerName, ['%harmony_routing.dynamic.persistence.orm.manager_name%']]
+    harmony_routing.content_repository: '@Harmony\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository'
+
+    harmony_routing.orm_candidates:
+        class: Symfony\Cmf\Component\Routing\Candidates\Candidates
+        arguments:
+            $locales: '%harmony_routing.dynamic.locales%'
+            $limit: '%harmony_routing.dynamic.limit_candidates%'
+
+    Harmony\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider:
+        calls:
+            - [setManagerName, ['%harmony_routing.dynamic.persistence.orm.manager_name%']]
+            - [setRouteCollectionLimit, ['%harmony_routing.route_collection_limit%']]

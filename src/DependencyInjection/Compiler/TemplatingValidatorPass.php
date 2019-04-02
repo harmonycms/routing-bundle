@@ -11,7 +11,7 @@
 
 namespace Harmony\Bundle\RoutingBundle\DependencyInjection\Compiler;
 
-use Harmony\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTemplatingValidator;
+use Harmony\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTwigValidator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -24,15 +24,17 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class TemplatingValidatorPass implements CompilerPassInterface
 {
+
     /**
-     * {@inheritdoc}
+     * You can modify the container here before it is dumped to PHP code.
+     *
+     * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
         if ($container->has('templating')) {
-            $validatorDefinition = $container->getDefinition('cmf_routing.validator.route_defaults');
-            $validatorDefinition->setClass(RouteDefaultsTemplatingValidator::class);
-            $validatorDefinition->replaceArgument(1, new Reference('templating'));
+            $validatorDefinition = $container->getDefinition(RouteDefaultsTwigValidator::class);
+            $validatorDefinition->replaceArgument('$twig', new Reference('templating'));
         }
     }
 }

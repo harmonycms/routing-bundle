@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    harmony_routing.router:
+        class: Symfony\Cmf\Component\Routing\ChainRouter
+        calls:
+            - [setContext, ['@router.request_context']]

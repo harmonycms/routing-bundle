@@ -142,7 +142,7 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('match_implicit_locale')->defaultValue(true)->end()
                         ->booleanNode('auto_locale_pattern')->defaultValue(false)->end()
                         ->scalarNode('url_generator')
-                            ->defaultValue('cmf_routing.generator')
+                            ->defaultValue('harmony_routing.generator')
                             ->info('URL generator service ID')
                         ->end() // url_generator
                     ->end()

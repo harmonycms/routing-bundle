@@ -19,11 +19,18 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class SetRouterPass implements CompilerPassInterface
 {
+
+    /**
+     * You can modify the container here before it is dumped to PHP code.
+     *
+     * @param ContainerBuilder $container
+     */
     public function process(ContainerBuilder $container)
     {
         // only replace the default router by overwriting the 'router' alias if config tells us to
-        if ($container->hasParameter('cmf_routing.replace_symfony_router') && true === $container->getParameter('cmf_routing.replace_symfony_router')) {
-            $container->setAlias('router', 'cmf_routing.router');
+        if ($container->hasParameter('harmony_routing.replace_symfony_router') &&
+            true === $container->getParameter('harmony_routing.replace_symfony_router')) {
+            $container->setAlias('router', 'harmony_routing.router');
             $container->getAlias('router')->setPublic(true);
         }
     }

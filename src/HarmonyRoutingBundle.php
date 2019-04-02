@@ -19,7 +19,6 @@ use Doctrine\ORM\Mapping\Driver\XmlDriver as OrmXmlDriver;
 use Doctrine\ORM\Version as ORMVersion;
 use Harmony\Bundle\RoutingBundle\DependencyInjection\Compiler\SetRouterPass;
 use Harmony\Bundle\RoutingBundle\DependencyInjection\Compiler\TemplatingValidatorPass;
-use Harmony\Bundle\RoutingBundle\DependencyInjection\Compiler\ValidationPass;
 use Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouteEnhancersPass;
 use Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRoutersPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -47,7 +46,6 @@ class HarmonyRoutingBundle extends Bundle
         $container->addCompilerPass(new RegisterRoutersPass());
         $container->addCompilerPass(new RegisterRouteEnhancersPass());
         $container->addCompilerPass(new SetRouterPass());
-        $container->addCompilerPass(new ValidationPass());
         $container->addCompilerPass(new TemplatingValidatorPass());
 
         $this->buildOdmCompilerPass($container);
@@ -70,8 +68,8 @@ class HarmonyRoutingBundle extends Bundle
         );
         $container->addCompilerPass(DoctrineMongoDBMappingsPass::createXmlMappingDriver(
             [realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model'],
-            ['cmf_routing.dynamic.persistence.mongodb.manager_name'],
-            'cmf_routing.backend_type_mongodb',
+            ['harmony_routing.dynamic.persistence.mongodb.manager_name'],
+            'harmony_routing.backend_type_mongodb',
             ['CmfRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\MongoDB']
         )
         );
@@ -95,7 +93,7 @@ class HarmonyRoutingBundle extends Bundle
         $container->addCompilerPass(
             DoctrineOrmMappingsPass::createXmlMappingDriver(
                 [realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model'],
-                ['cmf_routing.dynamic.persistence.orm.manager_name'],
+                ['harmony_routing.dynamic.persistence.orm.manager_name'],
                 true,
                 ['CmfRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\Orm']
             )
@@ -122,8 +120,8 @@ class HarmonyRoutingBundle extends Bundle
         return new $compilerClass(
             $driver,
             ['Symfony\Component\Routing'],
-            [sprintf('cmf_routing.dynamic.persistence.%s.manager_name', $type)],
-            sprintf('cmf_routing.backend_type_%s', $type)
+            [sprintf('harmony_routing.dynamic.persistence.%s.manager_name', $type)],
+            sprintf('harmony_routing.backend_type_%s', $type)
         );
     }
 }

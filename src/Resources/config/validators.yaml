@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Harmony\Bundle\RoutingBundle\Validator\Constraints\RouteDefaultsTwigValidator:
+        tags:
+            - { name: validator.constraint_validator, alias: harmony_routing.validator.route_defaults }
+        arguments:
+            $controllerResolver: '@controller_resolver'
+            $twig: '@twig.loader'

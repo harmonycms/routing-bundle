@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Harmony\Bundle\RoutingBundle\Form\Type\RouteTypeType:
+        tags:
+            - { name: form.type, alias: cmf_routing_route_type }

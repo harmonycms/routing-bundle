@@ -19,6 +19,6 @@ class RouteDefaults extends Constraint
 
     public function validatedBy()
     {
-        return 'cmf_routing.validator.route_defaults';
+        return 'harmony_routing.validator.route_defaults';
     }
 }
