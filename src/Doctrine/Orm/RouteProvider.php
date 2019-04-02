@@ -16,6 +16,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Harmony\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
 use Symfony\Cmf\Component\Routing\Candidates\CandidatesInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Component\Routing\RouteProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -26,7 +27,7 @@ use function sprintf;
 
 /**
  * Provider loading routes from Doctrine.
- * This is <strong>NOT</strong> not a doctrine repository but just the route
+ * This is <strong>NOT</strong> a doctrine repository but just the route
  * provider for the NestedMatcher. (you could of course implement this
  * interface in a repository class, if you need that)
  *
@@ -45,11 +46,14 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
      *
      * @param ManagerRegistry     $managerRegistry
      * @param CandidatesInterface $candidatesStrategy
-     * @param                     $className
      */
-    public function __construct(ManagerRegistry $managerRegistry, CandidatesInterface $candidatesStrategy, $className)
+    public function __construct(ManagerRegistry $managerRegistry, CandidatesInterface $candidatesStrategy)
     {
-        parent::__construct($managerRegistry, $className);
+        parent::__construct($managerRegistry,
+            $managerRegistry->getManager()
+                ->getMetadataFactory()
+                ->getMetadataFor(RouteObjectInterface::class)
+                ->getName());
         $this->candidatesStrategy = $candidatesStrategy;
     }
 

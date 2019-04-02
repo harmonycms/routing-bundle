@@ -115,7 +115,6 @@ class Configuration implements ConfigurationInterface
                                     ->canBeEnabled()
                                     ->children()
                                         ->scalarNode('manager_name')->defaultNull()->end()
-                                        ->scalarNode('route_class')->defaultValue(RouteMongoDB::class)->end()
                                     ->end()
                                 ->end() // mongodb
                                 ->arrayNode('orm')
@@ -123,7 +122,6 @@ class Configuration implements ConfigurationInterface
                                     ->canBeEnabled()
                                     ->children()
                                         ->scalarNode('manager_name')->defaultNull()->end()
-                                        ->scalarNode('route_class')->defaultValue(RouteOrm::class)->end()
                                     ->end()
                                 ->end() // orm
                             ->end()

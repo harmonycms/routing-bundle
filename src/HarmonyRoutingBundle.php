@@ -96,17 +96,8 @@ class HarmonyRoutingBundle extends Bundle
             DoctrineOrmMappingsPass::createXmlMappingDriver(
                 [realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model'],
                 ['cmf_routing.dynamic.persistence.orm.manager_name'],
-                'cmf_routing.backend_type_orm_default',
+                true,
                 ['CmfRoutingBundle' => 'Harmony\Bundle\RoutingBundle\Doctrine\Orm']
-            )
-        );
-
-        $container->addCompilerPass(
-            DoctrineOrmMappingsPass::createXmlMappingDriver(
-                [realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Harmony\Bundle\RoutingBundle\Model'],
-                ['cmf_routing.dynamic.persistence.orm.manager_name'],
-                'cmf_routing.backend_type_orm_custom',
-                []
             )
         );
     }
