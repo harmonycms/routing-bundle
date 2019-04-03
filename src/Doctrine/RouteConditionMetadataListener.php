@@ -15,6 +15,8 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LoadClassMetadataEventArgs;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata as MongoDBClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadata as OrmClassMetadata;
+use Doctrine\ORM\Mapping\MappingException;
+use LogicException;
 use Symfony\Component\Routing\Route;
 use function get_class;
 use function property_exists;
@@ -35,9 +37,7 @@ class RouteConditionMetadataListener implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return [
-            'loadClassMetadata',
-        ];
+        return ['loadClassMetadata'];
     }
 
     /**
@@ -46,7 +46,7 @@ class RouteConditionMetadataListener implements EventSubscriber
      *
      * @param LoadClassMetadataEventArgs $eventArgs
      *
-     * @throws \Doctrine\ORM\Mapping\MappingException
+     * @throws MappingException
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
@@ -76,7 +76,7 @@ class RouteConditionMetadataListener implements EventSubscriber
                 'nullable'  => true,
             ]);
         } else {
-            throw new \LogicException(sprintf('Class metadata was neither MongoDB nor ORM but %s', get_class($meta)));
+            throw new LogicException(sprintf('Class metadata was neither MongoDB nor ORM but %s', get_class($meta)));
         }
     }
 }
