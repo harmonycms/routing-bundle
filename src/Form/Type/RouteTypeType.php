@@ -74,6 +74,6 @@ class RouteTypeType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'cmf_routing_route_type';
+        return 'harmony_routing_route_type';
     }
 }

@@ -6,4 +6,4 @@ services:
 
     Harmony\Bundle\RoutingBundle\Form\Type\RouteTypeType:
         tags:
-            - { name: form.type, alias: cmf_routing_route_type }
+            - { name: form.type, alias: harmony_routing_route_type }
