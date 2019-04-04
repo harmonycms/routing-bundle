@@ -11,7 +11,6 @@
 
 namespace Harmony\Bundle\RoutingBundle\DependencyInjection;
 
-use Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route;
 use Harmony\Bundle\RoutingBundle\Form\Type\RouteTypeType;
 use Harmony\Bundle\RoutingBundle\Routing\DynamicRouter;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -24,8 +23,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
-use function array_unique;
-use function array_values;
 use function count;
 use function trim;
 
@@ -281,8 +278,6 @@ class HarmonyRoutingExtension extends Extension
         $loader->load('provider-mongodb.yaml');
 
         $container->setParameter('harmony_routing.backend_type_mongodb', true);
-        $container->setParameter('harmony_routing.dynamic.persistence.mongodb.route_basepaths',
-            array_values(array_unique($config['route_basepaths'])));
 
         $container->setParameter('harmony_routing.dynamic.persistence.mongodb.manager_name', $config['manager_name']);
 
@@ -293,28 +288,6 @@ class HarmonyRoutingExtension extends Extension
             $definition = $container->getDefinition('harmony_routing.mongodb_candidates_prefix');
             $definition->setArguments([$definition->getArgument(0)]);
         }
-
-        if (true === $config['enable_initializer']) {
-            $this->loadInitializer($loader, $container);
-        }
-    }
-
-    /**
-     * @param LoaderInterface  $loader
-     * @param ContainerBuilder $container
-     *
-     * @throws \Exception
-     */
-    private function loadInitializer(LoaderInterface $loader, ContainerBuilder $container)
-    {
-        $initializedBasepaths = $container->getParameter($this->getAlias() .
-            '.dynamic.persistence.mongodb.route_basepaths');
-
-        $container->setParameter(
-            $this->getAlias() . '.dynamic.persistence.mongodb.initialized_basepaths',
-            $initializedBasepaths
-        );
-        //$loader->load('initializer-mongodb.xml');
     }
 
     /**
