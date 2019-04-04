@@ -14,7 +14,7 @@ namespace Harmony\Bundle\RoutingBundle;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
 use Doctrine\Common\Persistence\Mapping\Driver\DefaultFileLocator;
-use Doctrine\ODM\MongoDB\Mapping\Driver as OdmXmlDriver;
+use Doctrine\ODM\MongoDB\Mapping\Driver\XmlDriver as OdmXmlDriver;
 use Doctrine\ORM\Mapping\Driver\XmlDriver as OrmXmlDriver;
 use Doctrine\ORM\Version as ORMVersion;
 use Harmony\Bundle\RoutingBundle\DependencyInjection\Compiler\SetRouterPass;
