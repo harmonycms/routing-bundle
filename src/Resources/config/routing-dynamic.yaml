@@ -59,6 +59,8 @@ services:
 
     harmony_routing.enhancer.content_repository:
         class: Symfony\Cmf\Component\Routing\Enhancer\ContentRepositoryEnhancer
+        arguments:
+            $contentRepository: '@harmony_routing.content_repository'
 
     Harmony\Bundle\RoutingBundle\Routing\DynamicRouter:
         arguments:
@@ -66,12 +68,15 @@ services:
             $matcher: '@harmony_routing.nested_matcher'
             $generator: ''
             $uriFilterRegexp: '%harmony_routing.uri_filter_regexp%'
+            $eventDispatcher: '@?event_dispatcher'
+            $provider: '@harmony_routing.route_provider'
         calls:
             - [setRequestStack, ['@request_stack']]
 
     harmony_routing.nested_matcher:
         class: Symfony\Cmf\Component\Routing\NestedMatcher\NestedMatcher
         arguments:
+            $provider: '@harmony_routing.route_provider'
             $final: '@harmony_routing.final_matcher'
 
     harmony_routing.matcher.dummy_collection:
@@ -88,6 +93,8 @@ services:
 
     harmony_routing.generator:
         class: Symfony\Cmf\Component\Routing\ContentAwareGenerator
+        arguments:
+            $provider: '@harmony_routing.route_provider'
 
     Harmony\Bundle\RoutingBundle\Controller\RedirectController: ~
 

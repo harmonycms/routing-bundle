@@ -19,3 +19,4 @@ services:
         calls:
             - [setManagerName, ['%harmony_routing.dynamic.persistence.orm.manager_name%']]
             - [setRouteCollectionLimit, ['%harmony_routing.route_collection_limit%']]
+    harmony_routing.route_provider: '@Harmony\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider'
