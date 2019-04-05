@@ -16,6 +16,8 @@ services:
             $limit: '%harmony_routing.dynamic.limit_candidates%'
 
     Harmony\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider:
+        arguments:
+            $candidatesStrategy: '@harmony_routing.orm_candidates'
         calls:
             - [setManagerName, ['%harmony_routing.dynamic.persistence.orm.manager_name%']]
             - [setRouteCollectionLimit, ['%harmony_routing.route_collection_limit%']]
