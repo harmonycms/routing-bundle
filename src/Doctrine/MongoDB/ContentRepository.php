@@ -44,7 +44,7 @@ class ContentRepository extends DoctrineProvider implements ContentRepositoryInt
         }
 
         try {
-            return $this->getObjectManager()->getUnitOfWork()->getDocumentId($content);
+            return $this->getObjectManager()->getUnitOfWork()->getDocumentIdentifier($content);
         }
         catch (Exception $e) {
             return null;
