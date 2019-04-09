@@ -17,7 +17,7 @@ services:
 
     Harmony\Bundle\RoutingBundle\Doctrine\MongoDB\RouteProvider:
         arguments:
-            $candidatesStrategy: '@harmony_routing.orm_candidates'
+            $candidatesStrategy: '@harmony_routing.mongodb_candidates'
         calls:
             - [setManagerName, ['%harmony_routing.dynamic.persistence.mongodb.manager_name%']]
             - [setRouteCollectionLimit, ['%harmony_routing.route_collection_limit%']]
