@@ -5,10 +5,10 @@
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
     <mapped-superclass name="Harmony\Bundle\RoutingBundle\Model\RedirectRoute">
-        <field field-name="uri" nullable="true"/>
-        <field field-name="routeName" nullable="true"/>
+        <field field-name="uri" nullable="true" type="string"/>
+        <field field-name="routeName" nullable="true" type="string"/>
         <field field-name="permanent" type="boolean"/>
-        <field field-name="parameters" nullable="true"/>
+        <field field-name="parameters" nullable="true" type="hash"/>
         <reference-one field="routeTarget" target-document="Harmony\Bundle\RoutingBundle\Model\Route"/>
     </mapped-superclass>
 
