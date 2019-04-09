@@ -2,12 +2,19 @@
 
 namespace Harmony\Bundle\RoutingBundle\Doctrine\MongoDB;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Harmony\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
+use Harmony\Bundle\RoutingBundle\Model\Route as RouteModel;
+use Symfony\Cmf\Component\Routing\Candidates\CandidatesInterface;
 use Symfony\Cmf\Component\Routing\RouteProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
+use UnexpectedValueException;
+use function count;
+use function sprintf;
 
 /**
  * Class RouteProvider
@@ -16,6 +23,24 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class RouteProvider extends DoctrineProvider implements RouteProviderInterface
 {
+
+    /**
+     * @var CandidatesInterface
+     */
+    private $candidatesStrategy;
+
+    /**
+     * RouteProvider constructor.
+     *
+     * @param ManagerRegistry     $managerRegistry
+     * @param CandidatesInterface $candidatesStrategy
+     */
+    public function __construct(ManagerRegistry $managerRegistry, CandidatesInterface $candidatesStrategy)
+    {
+        parent::__construct($managerRegistry,
+            $managerRegistry->getManager()->getClassMetadata(RouteModel::class)->getName());
+        $this->candidatesStrategy = $candidatesStrategy;
+    }
 
     /**
      * Finds routes that may potentially match the request.
@@ -38,7 +63,19 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
      */
     public function getRouteCollectionForRequest(Request $request)
     {
-        // TODO: Implement getRouteCollectionForRequest() method.
+        $collection = new RouteCollection();
+
+        $candidates = $this->candidatesStrategy->getCandidates($request);
+        if (0 === count($candidates)) {
+            return $collection;
+        }
+        $routes = $this->getRouteRepository()->findByStaticPrefix($candidates, ['position' => 'ASC']);
+        /** @var $route Route */
+        foreach ($routes as $route) {
+            $collection->add($route->getName(), $route);
+        }
+
+        return $collection;
     }
 
     /**
@@ -46,13 +83,22 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
      *
      * @param string $name The route name to fetch
      *
-     * @return Route
+     * @return object|Route
      * @throws RouteNotFoundException If there is no route with that name in
      *                                this repository
      */
     public function getRouteByName($name)
     {
-        // TODO: Implement getRouteByName() method.
+        if (!$this->candidatesStrategy->isCandidate($name)) {
+            throw new RouteNotFoundException(sprintf('Route "%s" is not handled by this route provider', $name));
+        }
+
+        $route = $this->getRouteRepository()->findOneBy(['name' => $name]);
+        if (!$route) {
+            throw new RouteNotFoundException("No route found for name '$name'");
+        }
+
+        return $route;
     }
 
     /**
@@ -73,11 +119,43 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
      * @param array|null $names The list of names to retrieve, In case of null,
      *                          the provider will determine what routes to return
      *
-     * @return Route[] Iterable list with the keys being the names from the
+     * @return object[]|Route[]
      *                 $names array
      */
     public function getRoutesByNames($names)
     {
-        // TODO: Implement getRoutesByNames() method.
+        if (null === $names) {
+            if (0 === $this->routeCollectionLimit) {
+                return [];
+            }
+
+            try {
+                return $this->getRouteRepository()->findBy([], null, $this->routeCollectionLimit ?: null);
+            }
+            catch (UnexpectedValueException $e) {
+                return [];
+            }
+        }
+
+        $routes = [];
+        foreach ($names as $name) {
+            // TODO: if we do findByName with multivalue, we need to filter with isCandidate afterwards
+            try {
+                $routes[] = $this->getRouteByName($name);
+            }
+            catch (RouteNotFoundException $e) {
+                // not found
+            }
+        }
+
+        return $routes;
+    }
+
+    /**
+     * @return ObjectRepository
+     */
+    protected function getRouteRepository()
+    {
+        return $this->getObjectManager()->getRepository($this->className);
     }
 }

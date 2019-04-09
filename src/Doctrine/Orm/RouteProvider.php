@@ -51,10 +51,7 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
     public function __construct(ManagerRegistry $managerRegistry, CandidatesInterface $candidatesStrategy)
     {
         parent::__construct($managerRegistry,
-            $managerRegistry->getManager()
-                ->getMetadataFactory()
-                ->getMetadataFor(RouteModel::class)
-                ->getName());
+            $managerRegistry->getManager()->getClassMetadata(RouteModel::class)->getName());
         $this->candidatesStrategy = $candidatesStrategy;
     }
 
