@@ -101,4 +101,4 @@ services:
     Harmony\Bundle\RoutingBundle\Doctrine\RouteConditionMetadataListener:
         tags:
             - { name: doctrine.event_subscriber }
-            - { name: doctrine_phpcr.event_subscriber }
+            - { name: doctrine_mongodb.odm.event_subscriber }
