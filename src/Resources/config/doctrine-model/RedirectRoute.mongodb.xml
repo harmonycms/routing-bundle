@@ -9,7 +9,7 @@
         <field field-name="routeName" nullable="true" type="string"/>
         <field field-name="permanent" type="boolean"/>
         <field field-name="parameters" nullable="true" type="hash"/>
-        <reference-one field="routeTarget" target-document="Harmony\Bundle\RoutingBundle\Model\Route"/>
+        <reference-one field="routeTarget" target-document="Symfony\Cmf\Component\Routing\RouteObjectInterface"/>
     </mapped-superclass>
 
 </doctrine-mongo-mapping>

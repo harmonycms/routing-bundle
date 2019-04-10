@@ -8,7 +8,7 @@
         <field name="routeName" nullable="true"/>
         <field name="permanent" type="boolean"/>
         <field name="parameters" nullable="true"/>
-        <many-to-one field="routeTarget" target-entity="Harmony\Bundle\RoutingBundle\Model\Route"/>
+        <many-to-one field="routeTarget" target-entity="Symfony\Cmf\Component\Routing\RouteObjectInterface"/>
     </mapped-superclass>
 
 </doctrine-mapping>
