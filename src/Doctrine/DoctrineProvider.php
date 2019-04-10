@@ -37,14 +37,6 @@ abstract class DoctrineProvider
     protected $managerRegistry;
 
     /**
-     * Class name of the object class to find, null for PHPCR-ODM as it can
-     * determine the class on its own.
-     *
-     * @var string|null
-     */
-    protected $className;
-
-    /**
      * Limit to apply when calling getRoutesByNames() with null.
      *
      * @var int|null
@@ -53,12 +45,10 @@ abstract class DoctrineProvider
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param string          $className
      */
-    public function __construct(ManagerRegistry $managerRegistry, $className = null)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
         $this->managerRegistry = $managerRegistry;
-        $this->className       = $className;
     }
 
     /**

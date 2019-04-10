@@ -5,8 +5,8 @@ namespace Harmony\Bundle\RoutingBundle\Doctrine\MongoDB;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Harmony\Bundle\RoutingBundle\Doctrine\DoctrineProvider;
-use Harmony\Bundle\RoutingBundle\Model\Route as RouteModel;
 use Symfony\Cmf\Component\Routing\Candidates\CandidatesInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Component\Routing\RouteProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -37,8 +37,7 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
      */
     public function __construct(ManagerRegistry $managerRegistry, CandidatesInterface $candidatesStrategy)
     {
-        parent::__construct($managerRegistry,
-            $managerRegistry->getManager()->getClassMetadata(RouteModel::class)->getName());
+        parent::__construct($managerRegistry, null);
         $this->candidatesStrategy = $candidatesStrategy;
     }
 
@@ -156,6 +155,6 @@ class RouteProvider extends DoctrineProvider implements RouteProviderInterface
      */
     protected function getRouteRepository()
     {
-        return $this->getObjectManager()->getRepository($this->className);
+        return $this->getObjectManager()->getRepository(RouteObjectInterface::class);
     }
 }
