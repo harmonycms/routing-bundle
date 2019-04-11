@@ -169,7 +169,7 @@ class HarmonyRoutingExtension extends Extension
         $hasProvider          = false;
         $hasContentRepository = false;
 
-        $bundles = $container->get('kernel.bundles');
+        $bundles = $container->getParameter('kernel.bundles');
         if (class_exists(DoctrineMongoDBMappingsPass::class) && isset($bundles['DoctrineMongoDBBundle'])) {
             $this->loadMongoDbProvider($loader, $container, $locales, $config['match_implicit_locale']);
             $hasProvider = $hasContentRepository = true;
