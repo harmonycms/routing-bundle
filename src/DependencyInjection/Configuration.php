@@ -11,8 +11,7 @@
 
 namespace Harmony\Bundle\RoutingBundle\DependencyInjection;
 
-use Harmony\Bundle\RoutingBundle\Doctrine\MongoDB\Route as RouteMongoDB;
-use Harmony\Bundle\RoutingBundle\Doctrine\Orm\Route as RouteOrm;
+use Harmony\Bundle\RoutingBundle\Routing\DynamicRouter;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -57,7 +56,7 @@ class Configuration implements ConfigurationInterface
                     ->fixXmlConfig('router_by_id', 'routers_by_id')
                     ->children()
                         ->arrayNode('routers_by_id')
-                            ->defaultValue(['router.default' => 100])
+                            ->defaultValue([DynamicRouter::class => 20, 'router.default' => 100])
                             ->useAttributeAsKey('id')
                             ->prototype('scalar')->end()
                         ->end() // routers_by_id
@@ -99,33 +98,6 @@ class Configuration implements ConfigurationInterface
                             ->useAttributeAsKey('class')
                             ->prototype('scalar')->end()
                         ->end() // templates_by_class
-                        ->arrayNode('persistence')
-                            ->addDefaultsIfNotSet()
-                            ->validate()
-                                ->ifTrue(function ($v) {
-                                    return count(array_filter($v, function ($persistence) {
-                                        return $persistence['enabled'];
-                                    })) > 1;
-                                })
-                                ->thenInvalid('Only one persistence layer can be enabled at the same time.')
-                            ->end()
-                            ->children()
-                                ->arrayNode('mongodb')
-                                    ->addDefaultsIfNotSet()
-                                    ->canBeEnabled()
-                                    ->children()
-                                        ->scalarNode('manager_name')->defaultNull()->end()
-                                    ->end()
-                                ->end() // mongodb
-                                ->arrayNode('orm')
-                                    ->addDefaultsIfNotSet()
-                                    ->canBeEnabled()
-                                    ->children()
-                                        ->scalarNode('manager_name')->defaultNull()->end()
-                                    ->end()
-                                ->end() // orm
-                            ->end()
-                        ->end() // persistence
                         ->scalarNode('uri_filter_regexp')->defaultValue('')->end()
                         ->scalarNode('route_provider_service_id')->end()
                         ->arrayNode('route_filters_by_id')

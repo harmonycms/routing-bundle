@@ -11,6 +11,8 @@
 
 namespace Harmony\Bundle\RoutingBundle\DependencyInjection;
 
+use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
 use Harmony\Bundle\RoutingBundle\Form\Type\RouteTypeType;
 use Harmony\Bundle\RoutingBundle\Routing\DynamicRouter;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -23,6 +25,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
+use function class_exists;
 use function count;
 use function trim;
 
@@ -165,15 +168,13 @@ class HarmonyRoutingExtension extends Extension
 
         $hasProvider          = false;
         $hasContentRepository = false;
-        if ($config['persistence']['mongodb']['enabled']) {
-            $this->loadMongoDbProvider($config['persistence']['mongodb'], $loader, $container, $locales,
-                $config['match_implicit_locale']);
-            $hasProvider = $hasContentRepository = true;
-        }
 
-        if ($config['persistence']['orm']['enabled']) {
-            $this->loadOrmProvider($config['persistence']['orm'], $loader, $container,
-                $config['match_implicit_locale']);
+        $bundles = $container->get('kernel.bundles');
+        if (class_exists(DoctrineMongoDBMappingsPass::class) && isset($bundles['DoctrineMongoDBBundle'])) {
+            $this->loadMongoDbProvider($loader, $container, $locales, $config['match_implicit_locale']);
+            $hasProvider = $hasContentRepository = true;
+        } elseif (class_exists(DoctrineOrmMappingsPass::class) && isset($bundles['DoctrineBundle'])) {
+            $this->loadOrmProvider($loader, $container, $config['match_implicit_locale']);
             $hasProvider = $hasContentRepository = true;
         }
 
@@ -264,7 +265,6 @@ class HarmonyRoutingExtension extends Extension
     }
 
     /**
-     * @param array            $config
      * @param LoaderInterface  $loader
      * @param ContainerBuilder $container
      * @param array            $locales
@@ -272,14 +272,12 @@ class HarmonyRoutingExtension extends Extension
      *
      * @throws \Exception
      */
-    private function loadMongoDbProvider(array $config, LoaderInterface $loader, ContainerBuilder $container,
-                                         array $locales, $matchImplicitLocale)
+    private function loadMongoDbProvider(LoaderInterface $loader, ContainerBuilder $container, array $locales,
+                                         $matchImplicitLocale)
     {
         $loader->load('provider-mongodb.yaml');
 
         $container->setParameter('harmony_routing.backend_type_mongodb', true);
-
-        $container->setParameter('harmony_routing.dynamic.persistence.mongodb.manager_name', $config['manager_name']);
 
         if (0 === count($locales)) {
             $container->removeDefinition('harmony_routing.mongodb_route_locale_listener');
@@ -291,20 +289,17 @@ class HarmonyRoutingExtension extends Extension
     }
 
     /**
-     * @param array            $config
      * @param LoaderInterface  $loader
      * @param ContainerBuilder $container
      * @param                  $matchImplicitLocale
      *
      * @throws \Exception
      */
-    private function loadOrmProvider(array $config, LoaderInterface $loader, ContainerBuilder $container,
-                                     $matchImplicitLocale)
+    private function loadOrmProvider(LoaderInterface $loader, ContainerBuilder $container, $matchImplicitLocale)
     {
         $loader->load('provider-orm.yaml');
 
         $container->setParameter('harmony_routing.backend_type_orm', true);
-        $container->setParameter('harmony_routing.dynamic.persistence.orm.manager_name', $config['manager_name']);
         $container->setParameter('harmony_routing.backend_type_orm_default', true);
 
         if (!$matchImplicitLocale) {

@@ -4,9 +4,7 @@ services:
         autowire: true
         autoconfigure: true
 
-    Harmony\Bundle\RoutingBundle\Doctrine\MongoDB\ContentRepository:
-        calls:
-            - [setManagerName, ['%harmony_routing.dynamic.persistence.mongodb.manager_name%']]
+    Harmony\Bundle\RoutingBundle\Doctrine\MongoDB\ContentRepository: ~
     harmony_routing.content_repository: '@Harmony\Bundle\RoutingBundle\Doctrine\MongoDB\ContentRepository'
 
     harmony_routing.mongodb_candidates:
@@ -19,6 +17,5 @@ services:
         arguments:
             $candidatesStrategy: '@harmony_routing.mongodb_candidates'
         calls:
-            - [setManagerName, ['%harmony_routing.dynamic.persistence.mongodb.manager_name%']]
             - [setRouteCollectionLimit, ['%harmony_routing.route_collection_limit%']]
     harmony_routing.route_provider: '@Harmony\Bundle\RoutingBundle\Doctrine\MongoDB\RouteProvider'
