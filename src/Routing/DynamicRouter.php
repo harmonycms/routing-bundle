@@ -53,22 +53,6 @@ class DynamicRouter extends BaseDynamicRouter
     private $requestStack;
 
     /**
-     * Put content and template name into the request attributes instead of the
-     * route defaults.
-     * {@inheritdoc}
-     * The match should identify  a controller for symfony. This can either be
-     * the fully qualified class name or the service name of a controller that
-     * is registered as a service. In both cases, the action to call on that
-     * controller is appended, separated with two colons.
-     */
-    public function match($url)
-    {
-        $defaults = parent::match($url);
-
-        return $this->cleanDefaults($defaults);
-    }
-
-    /**
      * Tries to match a request with a set of routes and returns the array of
      * information for that route.
      * If the matcher can not find information, it must throw one of the
