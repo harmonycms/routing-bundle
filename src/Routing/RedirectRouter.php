@@ -17,6 +17,10 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RouterInterface;
+use function is_null;
+use function str_replace;
+use function strstr;
+use function substr;
 
 /**
  * Class RedirectRouter
@@ -182,7 +186,7 @@ class RedirectRouter implements RouterInterface
     {
         return new Route($redirect->getPath(), [
             '_controller' => RedirectController::class . '::redirectAction',
-            'path'        => $redirect->getPath(),
+            'path'        => $redirect->getRouteTarget()->getPath(),
             'permanent'   => $redirect->isPermanent(),
         ]);
     }
