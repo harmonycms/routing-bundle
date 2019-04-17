@@ -96,7 +96,8 @@ services:
         arguments:
             $provider: '@harmony_routing.route_provider'
 
-    Harmony\Bundle\RoutingBundle\Controller\RedirectController: ~
+    Harmony\Bundle\RoutingBundle\Controller\RedirectController:
+        tags: ['controller.service_arguments']
 
     Harmony\Bundle\RoutingBundle\Doctrine\RouteConditionMetadataListener:
         tags:
