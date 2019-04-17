@@ -198,8 +198,8 @@ class RedirectRouter implements RouterInterface
      */
     private function createWildcardRoute(RedirectRoute $redirect)
     {
-        $origin   = $redirect->getOrigin();
-        $target   = $redirect->getTarget();
+        $origin   = $redirect->getPath();
+        $target   = $redirect->getRouteTarget()->getPath();
         $url      = $this->context->getPathInfo();
         $origin   = substr($origin, 0, - 1);
         $target   = substr($target, 0, - 1);
