@@ -12,6 +12,7 @@
 namespace Harmony\Bundle\RoutingBundle\DependencyInjection;
 
 use Harmony\Bundle\RoutingBundle\Routing\DynamicRouter;
+use Harmony\Bundle\RoutingBundle\Routing\RedirectRouter;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -56,7 +57,7 @@ class Configuration implements ConfigurationInterface
                     ->fixXmlConfig('router_by_id', 'routers_by_id')
                     ->children()
                         ->arrayNode('routers_by_id')
-                            ->defaultValue([DynamicRouter::class => 20, 'router.default' => 100])
+                            ->defaultValue([RedirectRouter::class => 20, DynamicRouter::class => 20, 'router.default' => 100])
                             ->useAttributeAsKey('id')
                             ->prototype('scalar')->end()
                         ->end() // routers_by_id

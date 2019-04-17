@@ -73,6 +73,8 @@ services:
         calls:
             - [setRequestStack, ['@request_stack']]
 
+    Harmony\Extension\RouteManager\Routing\RedirectRouter: ~
+
     harmony_routing.nested_matcher:
         class: Symfony\Cmf\Component\Routing\NestedMatcher\NestedMatcher
         arguments:
