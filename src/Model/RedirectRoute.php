@@ -94,7 +94,7 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
      * to have the generate call issued by the RedirectController to have
      * the target route in the parameters.
      *
-     * @return RouteObjectInterface|RedirectRouteInterface the route this redirection points to
+     * @return RouteObjectInterface|RedirectRouteInterface|\Symfony\Component\Routing\Route the route this redirection points to
      */
     public function getRouteTarget()
     {

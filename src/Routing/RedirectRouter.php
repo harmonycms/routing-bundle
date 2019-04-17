@@ -3,10 +3,10 @@
 namespace Harmony\Bundle\RoutingBundle\Routing;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Harmony\Bundle\RoutingBundle\Controller\RedirectController;
 use Harmony\Bundle\RoutingBundle\Model\RedirectRoute;
 use Symfony\Bundle\FrameworkBundle\Routing\RedirectableUrlMatcher;
 use Symfony\Cmf\Component\Routing\RedirectRouteInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
@@ -185,9 +185,9 @@ class RedirectRouter implements RouterInterface
     private function createRoute(RedirectRoute $redirect)
     {
         return new Route($redirect->getPath(), [
-            '_controller' => RedirectController::class . '::redirectAction',
-            'path'        => $redirect->getRouteTarget()->getPath(),
-            'permanent'   => $redirect->isPermanent(),
+            RouteObjectInterface::CONTROLLER_NAME => $redirect->getDefault(RouteObjectInterface::CONTROLLER_NAME),
+            'path'                                => $redirect->getRouteTarget()->getPath(),
+            'permanent'                           => $redirect->isPermanent(),
         ]);
     }
 
@@ -206,11 +206,10 @@ class RedirectRouter implements RouterInterface
         $pathInfo = str_replace($origin, $target, $url);
         $this->context->setPathInfo($pathInfo);
 
-        return new Route(
-            $url, [
-            '_controller' => RedirectController::class . '::redirectAction',
-            'path'        => $url,
-            'permanent'   => $redirect->isPermanent(),
+        return new Route($url, [
+            RouteObjectInterface::CONTROLLER_NAME => $redirect->getDefault(RouteObjectInterface::CONTROLLER_NAME),
+            'path'                                => $url,
+            'permanent'                           => $redirect->isPermanent(),
         ]);
     }
 }
