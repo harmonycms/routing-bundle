@@ -152,7 +152,7 @@ class RedirectRouter implements RouterInterface
      */
     private function isWildcardRedirect(RedirectRoute $redirect)
     {
-        $origin       = $redirect->getRouteTarget()->getUri();
+        $origin       = $redirect->getRouteTarget()->getPath();
         $matchSegment = substr($origin, 0, - 1);
         if (substr($origin, - 2) == '/*') {
             return $this->isPathInfoWildcardMatch($matchSegment);
