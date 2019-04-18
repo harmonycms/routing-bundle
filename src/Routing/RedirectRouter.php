@@ -190,6 +190,7 @@ class RedirectRouter implements RouterInterface
             RouteObjectInterface::CONTROLLER_NAME => $redirect->getDefault(RouteObjectInterface::CONTROLLER_NAME),
             'path'                                => $path,
             'permanent'                           => $redirect->isPermanent(),
+            'keepRequestMethod'                   => $redirect->getKeepRequestMethod()
         ]);
     }
 
@@ -212,6 +213,7 @@ class RedirectRouter implements RouterInterface
             RouteObjectInterface::CONTROLLER_NAME => $redirect->getDefault(RouteObjectInterface::CONTROLLER_NAME),
             'path'                                => $url,
             'permanent'                           => $redirect->isPermanent(),
+            'keepRequestMethod'                   => $redirect->getKeepRequestMethod()
         ]);
     }
 }
