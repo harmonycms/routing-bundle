@@ -86,11 +86,11 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
      * Set the route this redirection route points to. This must be a PHPCR-ODM
      * mapped object.
      *
-     * @param SymfonyRoute $document the redirection target route
+     * @param null|SymfonyRoute $document the redirection target route
      *
      * @return RedirectRoute
      */
-    public function setRouteTarget(SymfonyRoute $document)
+    public function setRouteTarget(?SymfonyRoute $document)
     {
         $this->routeTarget = $document;
 
