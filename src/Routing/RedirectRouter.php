@@ -17,6 +17,7 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RouterInterface;
+use function explode;
 use function is_null;
 use function str_replace;
 use function strstr;
@@ -184,14 +185,18 @@ class RedirectRouter implements RouterInterface
      */
     private function createRoute(RedirectRoute $redirect)
     {
-        $path = $redirect->getRouteTarget() ? $redirect->getRouteTarget()->getPath() : $redirect->getUri();
-
-        return new Route($redirect->getPath(), [
+        $defaults = [
             RouteObjectInterface::CONTROLLER_NAME => $redirect->getDefault(RouteObjectInterface::CONTROLLER_NAME),
-            'path'                                => $path,
             'permanent'                           => $redirect->isPermanent(),
             'keepRequestMethod'                   => $redirect->getKeepRequestMethod()
-        ]);
+        ];
+        if ('redirectAction' === explode('::', $redirect->getDefault(RouteObjectInterface::CONTROLLER_NAME))[1]) {
+            $defaults['route'] = $redirect->getRouteTarget()->getName();
+        } else {
+            $defaults['path'] = $redirect->getUri();
+        }
+
+        return new Route($redirect->getPath(), $defaults);
     }
 
     /**
