@@ -156,7 +156,7 @@ class RedirectRouter implements RouterInterface
      */
     private function isWildcardRedirect(RedirectRoute $redirect)
     {
-        $origin       = $redirect->getRouteTarget()->getPath();
+        $origin       = $redirect->getRouteTarget() ? $redirect->getRouteTarget()->getPath() : $redirect->getUri();
         $matchSegment = substr($origin, 0, - 1);
         if (substr($origin, - 2) == '/*') {
             return $this->isPathInfoWildcardMatch($matchSegment);
@@ -184,9 +184,11 @@ class RedirectRouter implements RouterInterface
      */
     private function createRoute(RedirectRoute $redirect)
     {
+        $path = $redirect->getRouteTarget() ? $redirect->getRouteTarget()->getPath() : $redirect->getUri();
+
         return new Route($redirect->getPath(), [
             RouteObjectInterface::CONTROLLER_NAME => $redirect->getDefault(RouteObjectInterface::CONTROLLER_NAME),
-            'path'                                => $redirect->getRouteTarget()->getPath(),
+            'path'                                => $path,
             'permanent'                           => $redirect->isPermanent(),
         ]);
     }
@@ -199,7 +201,7 @@ class RedirectRouter implements RouterInterface
     private function createWildcardRoute(RedirectRoute $redirect)
     {
         $origin   = $redirect->getPath();
-        $target   = $redirect->getRouteTarget()->getPath();
+        $target   = $redirect->getRouteTarget() ? $redirect->getRouteTarget()->getPath() : $redirect->getUri();
         $url      = $this->context->getPathInfo();
         $origin   = substr($origin, 0, - 1);
         $target   = substr($target, 0, - 1);
