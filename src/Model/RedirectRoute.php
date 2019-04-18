@@ -55,6 +55,11 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
     protected $keepRequestMethod = false;
 
     /**
+     * Whether redirect action should keep the original query string parameters. Default to false.
+     */
+    protected $keepQueryParams = false;
+
+    /**
      * Never call this, it makes no sense. The redirect route will return $this
      * as route content for the redirection controller to have the redirect route
      * object as content.
@@ -103,7 +108,8 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
      * to have the generate call issued by the RedirectController to have
      * the target route in the parameters.
      *
-     * @return RouteObjectInterface|RedirectRouteInterface|\Symfony\Component\Routing\Route the route this redirection points to
+     * @return RouteObjectInterface|RedirectRouteInterface|\Symfony\Component\Routing\Route the route this redirection
+     *                                                                                      points to
      */
     public function getRouteTarget()
     {
@@ -216,9 +222,9 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
     /**
      * Get KeepRequestMethod
      *
-     * @return mixed
+     * @return bool
      */
-    public function getKeepRequestMethod()
+    public function isKeepRequestMethod(): bool
     {
         return $this->keepRequestMethod;
     }
@@ -226,14 +232,39 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
     /**
      * Set KeepRequestMethod
      *
-     * @param mixed $keepRequestMethod
+     * @param bool $keepRequestMethod
      *
      * @return RedirectRoute
      */
-    public function setKeepRequestMethod($keepRequestMethod)
+    public function setKeepRequestMethod(bool $keepRequestMethod)
     {
         $this->keepRequestMethod = $keepRequestMethod;
 
         return $this;
     }
+
+    /**
+     * Get KeepQueryParams
+     *
+     * @return bool
+     */
+    public function isKeepQueryParams(): bool
+    {
+        return $this->keepQueryParams;
+    }
+
+    /**
+     * Set KeepQueryParams
+     *
+     * @param bool $keepQueryParams
+     *
+     * @return RedirectRoute
+     */
+    public function setKeepQueryParams(bool $keepQueryParams)
+    {
+        $this->keepQueryParams = $keepQueryParams;
+
+        return $this;
+    }
+
 }
