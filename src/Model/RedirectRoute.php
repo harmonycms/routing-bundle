@@ -50,6 +50,11 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
     protected $parameters = [];
 
     /**
+     * Whether redirect action should keep HTTP request method. Default to false.
+     */
+    protected $keepRequestMethod = false;
+
+    /**
      * Never call this, it makes no sense. The redirect route will return $this
      * as route content for the redirection controller to have the redirect route
      * object as content.
@@ -82,10 +87,14 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
      * mapped object.
      *
      * @param SymfonyRoute $document the redirection target route
+     *
+     * @return RedirectRoute
      */
     public function setRouteTarget(SymfonyRoute $document)
     {
         $this->routeTarget = $document;
+
+        return $this;
     }
 
     /**
@@ -105,10 +114,14 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
      * Set a symfony route name for this redirection.
      *
      * @param string $routeName
+     *
+     * @return RedirectRoute
      */
     public function setRouteName($routeName)
     {
         $this->routeName = $routeName;
+
+        return $this;
     }
 
     /**
@@ -127,10 +140,14 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
      * false.
      *
      * @param bool $permanent if true this is a permanent redirection
+     *
+     * @return RedirectRoute
      */
     public function setPermanent($permanent)
     {
         $this->permanent = $permanent;
+
+        return $this;
     }
 
     /**
@@ -149,10 +166,14 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
      *
      * @param array $parameters a hashmap of key to value mapping for route
      *                          parameters
+     *
+     * @return RedirectRoute
      */
     public function setParameters(array $parameters)
     {
         $this->parameters = $parameters;
+
+        return $this;
     }
 
     /**
@@ -171,10 +192,14 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
      * Set the absolute redirection target URI.
      *
      * @param string $uri the absolute URI
+     *
+     * @return RedirectRoute
      */
     public function setUri($uri)
     {
         $this->uri = $uri;
+
+        return $this;
     }
 
     /**
@@ -186,5 +211,29 @@ abstract class RedirectRoute extends Route implements RedirectRouteInterface
     public function getUri()
     {
         return $this->uri;
+    }
+
+    /**
+     * Get KeepRequestMethod
+     *
+     * @return mixed
+     */
+    public function getKeepRequestMethod()
+    {
+        return $this->keepRequestMethod;
+    }
+
+    /**
+     * Set KeepRequestMethod
+     *
+     * @param mixed $keepRequestMethod
+     *
+     * @return RedirectRoute
+     */
+    public function setKeepRequestMethod($keepRequestMethod)
+    {
+        $this->keepRequestMethod = $keepRequestMethod;
+
+        return $this;
     }
 }

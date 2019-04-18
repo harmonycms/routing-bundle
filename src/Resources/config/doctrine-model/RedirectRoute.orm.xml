@@ -8,6 +8,7 @@
         <field name="routeName" nullable="true"/>
         <field name="permanent" type="boolean"/>
         <field name="parameters" type="array" nullable="true"/>
+        <field name="keepRequestMethod" type="boolean"/>
         <many-to-one field="routeTarget" target-entity="Symfony\Cmf\Component\Routing\RouteObjectInterface"/>
     </mapped-superclass>
 
