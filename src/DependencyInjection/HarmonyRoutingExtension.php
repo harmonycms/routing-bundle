@@ -91,12 +91,11 @@ class HarmonyRoutingExtension extends Extension
     {
         $loader->load('routing-chain.yaml');
 
-        $container->setParameter('harmony_routing.replace_symfony_router', $config['chain']['replace_symfony_router']);
-
         // add the routers defined in the configuration mapping
-        $router = $container->getDefinition('harmony_routing.router');
-        foreach ($config['chain']['routers_by_id'] as $id => $priority) {
-            $router->addMethodCall('add', [new Reference($id), trim($priority)]);
+        $router = $container->getDefinition('harmony_routing.chain_router');
+        $router->addMethodCall('add', [new Reference('router.default'), 100]);
+        foreach ($container->findTaggedServiceIds('harmony_routing.router') as $id => $priority) {
+            $router->addMethodCall('add', [new Reference($id), $priority]);
         }
     }
 

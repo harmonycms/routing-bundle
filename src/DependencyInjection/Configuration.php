@@ -39,33 +39,9 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('harmony_routing');
         $root        = $treeBuilder->getRootNode();
 
-        $this->addChainSection($root);
         $this->addDynamicSection($root);
 
         return $treeBuilder;
-    }
-
-    /**
-     * @param ArrayNodeDefinition $root
-     */
-    private function addChainSection(ArrayNodeDefinition $root)
-    {
-        $root
-            ->children()
-                ->arrayNode('chain')
-                    ->addDefaultsIfNotSet()
-                    ->fixXmlConfig('router_by_id', 'routers_by_id')
-                    ->children()
-                        ->arrayNode('routers_by_id')
-                            ->defaultValue([RedirectRouter::class => 20, DynamicRouter::class => 20, 'router.default' => 100])
-                            ->useAttributeAsKey('id')
-                            ->prototype('scalar')->end()
-                        ->end() // routers_by_id
-                        ->booleanNode('replace_symfony_router')->defaultTrue()->end()
-                    ->end()
-                ->end()// chain
-            ->end()
-        ;
     }
 
     /**

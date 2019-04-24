@@ -4,7 +4,7 @@ services:
         autowire: true
         autoconfigure: true
 
-    harmony_routing.router:
+    harmony_routing.chain_router:
         class: Symfony\Cmf\Component\Routing\ChainRouter
         calls:
             - [setContext, ['@router.request_context']]

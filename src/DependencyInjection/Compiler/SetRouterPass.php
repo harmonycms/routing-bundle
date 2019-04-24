@@ -27,11 +27,7 @@ class SetRouterPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        // only replace the default router by overwriting the 'router' alias if config tells us to
-        if ($container->hasParameter('harmony_routing.replace_symfony_router') &&
-            true === $container->getParameter('harmony_routing.replace_symfony_router')) {
-            $container->setAlias('router', 'harmony_routing.router');
-            $container->getAlias('router')->setPublic(true);
-        }
+        $container->setAlias('router', 'harmony_routing.chain_router');
+        $container->getAlias('router')->setPublic(true);
     }
 }

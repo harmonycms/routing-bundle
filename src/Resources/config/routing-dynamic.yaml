@@ -62,19 +62,6 @@ services:
         arguments:
             $contentRepository: '@harmony_routing.content_repository'
 
-    Harmony\Bundle\RoutingBundle\Routing\DynamicRouter:
-        arguments:
-            $context: '@router.request_context'
-            $matcher: '@harmony_routing.nested_matcher'
-            $generator: ''
-            $uriFilterRegexp: '%harmony_routing.uri_filter_regexp%'
-            $eventDispatcher: '@?event_dispatcher'
-            $provider: '@harmony_routing.route_provider'
-        calls:
-            - [setRequestStack, ['@request_stack']]
-
-    Harmony\Bundle\RoutingBundle\Routing\RedirectRouter: ~
-
     harmony_routing.nested_matcher:
         class: Symfony\Cmf\Component\Routing\NestedMatcher\NestedMatcher
         arguments:
@@ -105,3 +92,20 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
             - { name: doctrine_mongodb.odm.event_subscriber }
+
+    Harmony\Bundle\RoutingBundle\Routing\DynamicRouter:
+        arguments:
+            $context: '@router.request_context'
+            $matcher: '@harmony_routing.nested_matcher'
+            $generator: ''
+            $uriFilterRegexp: '%harmony_routing.uri_filter_regexp%'
+            $eventDispatcher: '@?event_dispatcher'
+            $provider: '@harmony_routing.route_provider'
+        calls:
+            - [setRequestStack, ['@request_stack']]
+        tags:
+            - { name: 'harmony_routing.router', priority: 20 }
+
+    Harmony\Bundle\RoutingBundle\Routing\RedirectRouter:
+        tags:
+            - { name: 'harmony_routing.router', priority: 20 }
