@@ -94,7 +94,8 @@ class HarmonyRoutingExtension extends Extension
         // add the routers defined in the configuration mapping
         $router = $container->getDefinition('harmony_routing.chain_router');
         $router->addMethodCall('add', [new Reference('router.default'), 100]);
-        foreach ($container->findTaggedServiceIds('harmony_routing.router') as $id => $priority) {
+        foreach ($container->findTaggedServiceIds('harmony_routing.router') as $id => $tags) {
+            $priority = $tags[0]['priority'];
             $router->addMethodCall('add', [new Reference($id), $priority]);
         }
     }
