@@ -5,12 +5,12 @@
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
     <mapped-superclass name="Symfony\Component\Routing\Route">
-        <field field-name="host" type="string"/>
-        <field field-name="schemes" type="hash"/>
-        <field field-name="methods" type="hash"/>
-        <field field-name="defaults" type="hash"/>
-        <field field-name="requirements" type="hash"/>
-        <field field-name="options" type="hash"/>
+        <field name="host" type="string"/>
+        <field name="schemes" type="hash"/>
+        <field name="methods" type="hash"/>
+        <field name="defaults" type="hash"/>
+        <field name="requirements" type="hash"/>
+        <field name="options" type="hash"/>
     </mapped-superclass>
 
 </doctrine-mongo-mapping>
