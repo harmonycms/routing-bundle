@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Harmony RoutingBundle",
     "keywords": ["routing", "database", "orm", "mongodb", "autowiring"],
-    "homepage": "",
+    "homepage": "https://harmonycms.net",
     "license": "LGPL-3.0-or-later",
     "authors": [
         {
