@@ -17,11 +17,13 @@ use Doctrine\Common\Persistence\Mapping\Driver\DefaultFileLocator;
 use Doctrine\ODM\MongoDB\Mapping\Driver\XmlDriver as OdmXmlDriver;
 use Doctrine\ORM\Mapping\Driver\XmlDriver as OrmXmlDriver;
 use Doctrine\ORM\Version as ORMVersion;
+use Harmony\Bundle\RoutingBundle\DependencyInjection\Compiler\RouteAutowiringPass;
 use Harmony\Bundle\RoutingBundle\DependencyInjection\Compiler\SetRouterPass;
 use Harmony\Bundle\RoutingBundle\DependencyInjection\Compiler\TemplatingValidatorPass;
 use Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRouteEnhancersPass;
 use Symfony\Cmf\Component\Routing\DependencyInjection\Compiler\RegisterRoutersPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -47,6 +49,7 @@ class HarmonyRoutingBundle extends Bundle
         $container->addCompilerPass(new RegisterRouteEnhancersPass());
         $container->addCompilerPass(new SetRouterPass());
         $container->addCompilerPass(new TemplatingValidatorPass());
+        $container->addCompilerPass(new RouteAutowiringPass(), PassConfig::TYPE_OPTIMIZE);
 
         $this->buildOdmCompilerPass($container);
         $this->buildOrmCompilerPass($container);

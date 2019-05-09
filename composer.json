@@ -2,9 +2,9 @@
     "name": "harmony/routing-bundle",
     "type": "symfony-bundle",
     "description": "Harmony RoutingBundle",
-    "keywords": ["routing", "database", "orm", "mongodb"],
-    "homepage": "",
-    "license": "MIT",
+    "keywords": ["routing", "database", "orm", "mongodb", "autowiring"],
+    "homepage": "https://harmonycms.net",
+    "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "Symfony CMF Community",
@@ -19,6 +19,7 @@
     ],
     "require": {
         "php": "^7.1",
+        "rollerworks/route-autowiring-bundle": "^1.1",
         "symfony-cmf/routing": "^2.1.0",
         "symfony/framework-bundle": "^4.0"
     },
