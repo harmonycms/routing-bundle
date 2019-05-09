@@ -4,7 +4,7 @@
     "description": "Harmony RoutingBundle",
     "keywords": ["routing", "database", "orm", "mongodb", "autowiring"],
     "homepage": "",
-    "license": "MIT",
+    "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "Symfony CMF Community",
